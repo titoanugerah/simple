@@ -75,10 +75,16 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
+	//karena kita memakai server lokal (komputer) maka untuk hostnamenya memakai localhost
 	'hostname' => 'localhost',
-	'username' => '',
+	//username default pada database mysql adalah root
+	'username' => 'root',
+	//biasanya untuk username root nggak ada passwordnya
 	'password' => '',
-	'database' => '',
+	//database yang digunakan namanya simple
+	'database' => 'simple',
+	//dbdriver disini ada 2 mysql dan mysqli, kita make yang terbaru yaitu mysqli
+	//kenapa milih mysqli soalnya kita make php versi 5 keatas yang berarti itu cocoknya pake mysqli
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
