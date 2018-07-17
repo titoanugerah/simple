@@ -47,7 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |				'ssl_key'    - Path to the private key file
 |				'ssl_cert'   - Path to the public key certificate file
 |				'ssl_ca'     - Path to the certificate authority file
-|				'ssl_capath' - Path to a directory containing trusted CA certificates in PEM format
+|				'ssl_capath' - Path to a directory containing trusted CA certificats in PEM format
 |				'ssl_cipher' - List of *allowed* ciphers to be used for the encryption, separated by colons (':')
 |				'ssl_verify' - TRUE/FALSE; Whether verify the server certificate or not ('mysqli' only)
 |
@@ -75,16 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	//karena kita memakai server lokal (komputer) maka untuk hostnamenya memakai localhost
 	'hostname' => 'localhost',
-	//username default pada database mysql adalah root
-	'username' => 'root',
-	//biasanya untuk username root nggak ada passwordnya
+	'username' => '',
 	'password' => '',
-	//database yang digunakan namanya simple
-	'database' => 'simple',
-	//dbdriver disini ada 2 mysql dan mysqli, kita make yang terbaru yaitu mysqli
-	//kenapa milih mysqli soalnya kita make php versi 5 keatas yang berarti itu cocoknya pake mysqli
+	'database' => '',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
