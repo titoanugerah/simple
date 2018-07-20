@@ -73,14 +73,14 @@
             <div class="form-group">
               <label for="inputName" class="col-sm-2 control-label">Letak Perangkat</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Letak Perangkat" name="address" value="<?php echo $detail->node_address; ?>">
+                <input type="text" class="form-control" placeholder="Letak Perangkat" name="address" value="<?php echo $detail->node_address; ?>" disabled>
               </div>
             </div>
 
             <div class="form-group">
               <label for="inputName" class="col-sm-2 control-label">Status</label>
               <div class="col-sm-10">
-              <select class="form-control" name="status">
+              <select class="form-control" name="status" disabled>
                 <option value="1" <?php if ($detail->status==1){ echo "selected";} ?>>Aktif</option>
                 <option value="0" <?php if ($detail->status==0){ echo "selected";} ?>>Nonaktif</option>
               </select>
@@ -90,7 +90,6 @@
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-success" name="updateNode" value="updateNode">Simpan Data</button>
-                <button type="submit" class="btn btn-danger" name="deleteNode" value="deleteNode">Hapus Node</button>
               </div>
             </div>
           </form>

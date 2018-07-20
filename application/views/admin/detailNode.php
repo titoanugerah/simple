@@ -97,7 +97,7 @@
         </div>
 
         <div class="tab-pane" id="listTemp">
-
+          <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
             <div class="box-body">
               <table id="example2" class="table table-bordered table-striped">
                 <thead>

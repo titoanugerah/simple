@@ -80,4 +80,10 @@ class Account extends CI_Controller {
 		$this->session->sess_destroy();
 		redirect(base_url('login'));
 	}
+
+	public function test()
+	{
+		$data['notification'] = 'no';
+		$data['view_name'] = 'test';
+		$this->load->view('template',$data);	}
 }

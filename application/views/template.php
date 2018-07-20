@@ -45,6 +45,16 @@
   <!-- fullCalendar 2.2.5-->
   <link rel="stylesheet" href="<?php echo base_url('./assets/plugins/fullcalendar/fullcalendar.min.css'); ?>">
   <link rel="stylesheet" href="<?php echo base_url('./assets/plugins/fullcalendar/fullcalendar.print.css'); ?>" media="print">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style type="text/css">
+  #container {
+    min-width: 310px;
+    max-width: 800px;
+    height: 400px;
+    margin: 0 auto
+  }
+  </style>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -263,6 +273,70 @@
   });
 </script>
 
+<script src="<?php echo base_url('./assets/high')?>/code/highcharts.js"></script>
+<script src="<?php echo base_url('./assets/high')?>/code/modules/series-label.js"></script>
+<script src="<?php echo base_url('./assets/high')?>/code/modules/exporting.js"></script>
+<script src="<?php echo base_url('./assets/high')?>/code/modules/export-data.js"></script>
+
+
+<script type="text/javascript">
+ Highcharts.chart('container', {
+	 title: {
+		 text: 'Grafik Monitoring Suhu'
+	 },
+	 subtitle: {
+		 text: 'Sumber: Node <?php echo $detail->node_name; ?>'
+	 },
+	 yAxis: {
+		 title: {
+			 text: 'Suhu dalam celcius'
+		 }
+	 },
+	 legend: {
+		 layout: 'vertical',
+		 align: 'right',
+		 verticalAlign: 'middle'
+	 },
+	 plotOptions: {
+		 series: {
+			 label: {
+				 connectorAllowed: true
+			 },
+			 pointStart: 2002
+		 }
+	 },
+	 series: [{
+		 name: 'Suhu',
+		 data: [<?php foreach ($listTemp as $item): ?>
+       <?php echo $item->temp.","; ?>
+     <?php endforeach; ?>]
+	 },{
+		 name: 'Batas Minimum',
+		 data: [<?php foreach ($listTemp as $item): ?>
+       <?php echo "25".","; ?>
+     <?php endforeach; ?>]
+	 },{
+		 name: 'Batas Maksimum',
+		 data: [<?php foreach ($listTemp as $item): ?>
+       <?php echo "30".","; ?>
+     <?php endforeach; ?>]
+	 }],
+    responsive: {
+        rules: [{
+            condition: {
+                maxWidth: 500
+            },
+            chartOptions: {
+                legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                }
+            }
+        }]
+    }
+	});
+		</script>
 
 <script>
   $(function () {
