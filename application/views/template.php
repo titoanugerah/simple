@@ -302,7 +302,7 @@
 			 label: {
 				 connectorAllowed: true
 			 },
-			 pointStart: 2002
+			 pointStart: 2010
 		 }
 	 },
 	 series: [{
@@ -337,6 +337,65 @@
     }
 	});
 		</script>
+
+    <script type="text/javascript">
+     Highcharts.chart('container1', {
+    	 title: {
+    		 text: 'Grafik Monitoring PH'
+    	 },
+    	 subtitle: {
+    		 text: 'Sumber: Node <?php echo $detail->node_name; ?>'
+    	 },
+    	 yAxis: {
+    		 title: {
+    			 text: 'pH'
+    		 }
+    	 },
+    	 legend: {
+    		 layout: 'vertical',
+    		 align: 'right',
+    		 verticalAlign: 'middle'
+    	 },
+    	 plotOptions: {
+    		 series: {
+    			 label: {
+    				 connectorAllowed: true
+    			 },
+    			 pointStart: 2010
+    		 }
+    	 },
+    	 series: [{
+    		 name: 'PH',
+    		 data: [<?php foreach ($listPH as $item): ?>
+           <?php echo $item->ph.","; ?>
+         <?php endforeach; ?>]
+    	 },{
+    		 name: 'Batas Minimum',
+    		 data: [<?php foreach ($listPH as $item): ?>
+           <?php echo "6.5".","; ?>
+         <?php endforeach; ?>]
+    	 },{
+    		 name: 'Batas Maksimum',
+    		 data: [<?php foreach ($listPH as $item): ?>
+           <?php echo "10".","; ?>
+         <?php endforeach; ?>]
+    	 }],
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500
+                },
+                chartOptions: {
+                    legend: {
+                        layout: 'horizontal',
+                        align: 'center',
+                        verticalAlign: 'bottom'
+                    }
+                }
+            }]
+        }
+    	});
+    		</script>
 
 <script>
   $(function () {
