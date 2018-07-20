@@ -74,6 +74,29 @@ class Account_model extends CI_Model{
       $this->db->update('account',$data);
    }
 
+   public function createAccount1()
+   {
+     $dataA = array(
+       'username' => $this->input->post('username'),
+       'password' => md5('0000'),
+       'privileges'=> 'client'
+      );
+
+      $this->db->insert('account',$dataA);
+   }
+
+   public function createAccount2()
+   {
+    $dataB = array(
+      'id' => $this->db->insert_id(),
+      'fullname' => $this->input->post('fullname'),
+      'email' => $this->input->post('email'),
+      'phone_number' => $this->input->post('phone_number'),
+      'address' => $this->input->post('address')
+     );
+     $this->db->insert('account_client',$dataB);
+
+   }
 }
 
 ?>

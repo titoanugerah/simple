@@ -59,7 +59,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo base_url('adminDashboard'); ?>" class="logo">
+    <a href="<?php echo base_url($this->session->userdata['privileges'].'Dashboard'); ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>P</b>L</span>
       <!-- logo for regular state and mobile devices -->
@@ -162,7 +162,7 @@
         <li class="header">Dashboard</li>
         <li>
           <a href="<?php echo base_url($this->session->userdata['privileges'].'Dashboard'); ?>">
-            <i class="fa fa-home"></i> <span>Admin Dashboard</span>
+            <i class="fa fa-home"></i> <span>Dashboard</span>
           </a>
         </li>
       </ul>

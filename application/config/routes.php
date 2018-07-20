@@ -8,7 +8,8 @@ $route['profile'] = 'account/profile';
 $route['404_override'] = '';
 $route['adminDashboard'] = 'admin/adminDashboard';
 $route['createAccount'] = 'admin/createAccount';
+$route['listAccount'] = 'admin/listAccount';
+$route['detailAccount/(:any)'] = 'admin/detailAccount/$1';
 $route['clientDashboard'] = 'client/clientDashboard';
-
 $route['translate_uri_dashes'] = FALSE;
 $route['test'] = 'welcome/test';
