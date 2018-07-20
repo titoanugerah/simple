@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 //deklarasi kelas Login_model sebagai model
 //penamaan kontroller harus huruf kapital didepan
-class Login_model extends CI_Model{
+class Account_model extends CI_Model{
   public function __construct(){
     //untuk mengakses database beserta konfigurasi2 dari database
     $this->load->database();
@@ -43,10 +43,36 @@ class Login_model extends CI_Model{
      return $query->row();
   }
 
-  public function deleteCaptcha()
+  public function updateAccount()
   {
-    delete_files('./captcha/');
-  }
+    $dataA = array(
+      'username' => $this->input->post('username')
+     );
+
+    $dataB = array(
+      'fullname' => $this->input->post('fullname'),
+      'email' => $this->input->post('email'),
+      'phone_number' => $this->input->post('phone_number'),
+      'address' => $this->input->post('address')
+     );
+
+     $where = array('id' => $this->session->userdata['id']);
+     $this->db->where($where);
+     $this->db->update('account',$dataA);
+     $this->db->where($where);
+     $this->db->update('account_'.$this->session->userdata['privileges'],$dataB);
+   }
+
+   public function updatePassword()
+   {
+     $data = array(
+       'password' => md5($this->input->post('password'))
+      );
+
+      $where = array('id' => $this->session->userdata['id']);
+      $this->db->where($where);
+      $this->db->update('account',$data);
+   }
 
 }
 
