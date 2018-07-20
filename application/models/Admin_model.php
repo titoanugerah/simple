@@ -41,6 +41,52 @@ class Admin_model extends CI_Model{
      $this->db->insert('node',$dataA);
   }
 
+  public function getSelectedNode($id)
+  {
+    $where = array('id' => $id);
+    $query = $this->db->get_where('view_node',$where);
+    return $query->row();
+  }
+
+  public function getTempSelectedNode($id)
+  {
+    $where = array('id_node' => $id);
+    $query = $this->db->get_where('view_temp',$where);
+    return $query->result();
+  }
+
+  public function getPHSelectedNode($id)
+  {
+    $where = array('id_node' => $id);
+    $query = $this->db->get_where('view_ph',$where);
+    return $query->result();
+  }
+
+  public function updateNode($id)
+  {
+    $data = array(
+      'node_name' => $this->input->post('node_name'),
+      'address' => $this->input->post('address'),
+      'status' => $this->input->post('status')
+     );
+     $where = array('id'=>$id);
+     $this->db->where($where);
+     $this->db->update('node',$data);
+  }
+
+  public function deleteNode($id)
+  {
+    $where = array('id'=>$id);
+    $this->db->where($where);
+    $this->db->delete('node');
+  }
+
+  public function getListNode()
+  {
+    $query =  $this->db->get('view_node');
+    return $query->result();
+  }
+
   public function updateSelectedAccount($id)
   {
     $dataA = array(

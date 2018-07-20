@@ -23,7 +23,6 @@
       </span>
     </a>
     <ul class="treeview-menu">
-      <li><a href="<?php echo base_url('createNode'); ?>"><i class="fa fa-plus"></i> Tambah Perangkat</a></li>
       <li><a href="<?php echo base_url('listNode'); ?>"><i class="fa fa-cube"></i>List Perangkat</a></li>
     </ul>
   </li>

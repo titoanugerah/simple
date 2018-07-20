@@ -66,4 +66,29 @@ class Admin extends CI_Controller {
 		$data['view_name'] = 'admin/detailAccount';
 		$this->load->view('template',$data);
 	}
+
+	public function detailNode($id)
+	{
+		$data['notification'] = 'no';
+		if ($this->input->post('updateNode')) {
+			$this->admin_model->updateNode($id);
+			$data['notification'] = 'updateSuccess';
+		} elseif ($this->input->post('deleteNode')) {
+			$this->admin_model->deleteNode($id);
+			redirect(base_url('listAccount'));
+		}
+		$data['listTemp'] = $this->admin_model->getTempSelectedNode($id);
+		$data['listPH'] = $this->admin_model->getPHSelectedNode($id);
+		$data['detail'] = $this->admin_model->getSelectedNode($id);
+		$data['view_name'] = 'admin/detailNode';
+		$this->load->view('template',$data);
+	}
+
+	public function listNode()
+	{
+		$data['list'] = $this->admin_model->getListNode();
+		$data['view_name'] = 'admin/listNode';
+		$data['notification'] = 'no';
+		$this->load->view('template',$data);
+	}
 }
