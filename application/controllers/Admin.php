@@ -58,7 +58,10 @@ class Admin extends CI_Controller {
 		} elseif ($this->input->post('resetPasword')) {
 			$this->admin_model->resetPasswordSelectedAccount($id);
 			$data['notification'] = 'updateSuccess';
+		} elseif ($this->input->post('createNode')) {
+			$this->admin_model->createNode($id);
 		}
+		$data['list'] = $this->admin_model->getClientNode($id);
 		$data['detail'] = $this->admin_model->getSelectedAccount($id);
 		$data['view_name'] = 'admin/detailAccount';
 		$this->load->view('template',$data);

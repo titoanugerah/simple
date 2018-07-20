@@ -23,6 +23,24 @@ class Admin_model extends CI_Model{
     return $query->row();
   }
 
+  public function getClientNode($id)
+  {
+    $where = array('id_client' => $id);
+    $query = $this->db->get_where('view_node',$where);
+    return $query->result();
+  }
+
+  public function createNode($id)
+  {
+    $dataA = array(
+      'node_name' => $this->input->post('node_name'),
+      'id_client' => $id,
+      'address'=> $this->input->post('address')
+     );
+
+     $this->db->insert('node',$dataA);
+  }
+
   public function updateSelectedAccount($id)
   {
     $dataA = array(

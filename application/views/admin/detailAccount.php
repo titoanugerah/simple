@@ -120,7 +120,75 @@
             </div>
           </form>
         </div>
+
+        <div class="tab-pane" id="listNode">
+
+            <div class="box-body">
+              <table id="example2" class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>No.</th>
+                    <th>ID Node</th>
+                    <th>Nama Perangkat</th>
+                    <th>Letak Perangkat</th>
+                    <th>Status</th>
+                    <th>Opsi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <?php $i=1; foreach ($list as $item) : ?>
+                    <tr>
+                      <td><?php echo $i; ?></td>
+                      <td><?php echo "NODE".$item->id; ?></td>
+                      <td><?php echo $item->node_name; ?></td>
+                      <td><?php echo $item->node_address; ?></td>
+                      <td><?php if($item->status==1){ echo "Aktif";} else { echo "Nonaktif";} ?></td>
+                      <td><a href="<?php echo base_url('detailNode/'.$item->id);?>">Detail</a></td>
+                    </tr>
+                    <?php $i++; endforeach; ?>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <th>No.</th>
+                      <th>ID Node</th>
+                      <th>Nama Perangkat</th>
+                      <th>Letak Perangkat</th>
+                      <th>Status</th>
+                      <th>Opsi</th>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <div class="tab-pane" id="createNode">
+              <form class="form-horizontal" method="post">
+                <?php $this->load->view('notification/createNode'); ?>
+                <div class="form-group">
+                  <label for="inputName" class="col-sm-2 control-label">Nama Perangkat</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="Masukan nama perangkat" name="node_name" value="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputName" class="col-sm-2 control-label">Alamat Perangkat</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="Masukan alamat perangkat" name="address" value="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-success" name="createNode" value="createNode">Tambah Perangkat Baru</button>
+                  </div>
+                </div>
+
+              </form>
+            </div>
+
+        </div>
+
         <!-- /.tab-pane -->
+
       </div>
       <!-- /.tab-content -->
     </div>
