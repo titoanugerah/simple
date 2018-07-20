@@ -10,6 +10,7 @@ class Client extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model('client_model');
 	}
 
 	public function index()
@@ -19,7 +20,19 @@ class Client extends CI_Controller {
 
 	public function clientDashboard()
 	{
+		$data['menu'] = $this->client_model->getMenu();
 		$data['view_name'] = 'no';
+		$data['notification'] = 'no';
+		$this->load->view('template',$data);
+	}
+
+	public function detailNodeClient($id)
+	{
+		$data['menu'] = $this->client_model->getMenu();
+		$data['detail'] = $this->client_model->getSelectedNode($id);
+		$data['listPH'] = $this->client_model->getPHSelectedNode($id);
+		$data['listTemp'] = $this->client_model->getTempSelectedNode($id);
+		$data['view_name'] = 'client/detailNodeClient';
 		$data['notification'] = 'no';
 		$this->load->view('template',$data);
 	}

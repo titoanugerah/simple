@@ -6,6 +6,7 @@ $route['login'] = 'account';
 $route['logout'] = 'account/logout';
 $route['profile'] = 'account/profile';
 $route['detailNode/(:any)'] = 'admin/detailNode/$1';
+$route['detailNodeClient/(:any)'] = 'client/detailNodeClient/$1';
 $route['listNode'] = 'admin/listNode';
 $route['404_override'] = '';
 $route['adminDashboard'] = 'admin/adminDashboard';

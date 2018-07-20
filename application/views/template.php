@@ -187,9 +187,9 @@
 
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 1.2.1 b
+      <b>Version</b> 1.0.2
     </div>
-    <strong>Copyright &copy; <?php echo date('Y'); ?> <a href="http://lingkungan.ft.undip.ac.id/">Teknik Lingkungan Universitas Diponegoro</a>.</strong> All rights
+    <strong>Copyright &copy; <?php echo date('Y'); ?> <a href="http://polines.ac.id/">Politeknik Negeri Semarang</a>.</strong> All rights
     reserved.
   </footer>
 
@@ -245,10 +245,13 @@
 <script>
   $(function () {
     $("#example1").DataTable({
-      "order": [[ 0, "desc" ]],
-      "iDisplayLength": 60
-
-    });
+      "paging": true,
+      "lengthChange": true,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true
+        });
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": true,
@@ -263,28 +266,17 @@
 
 <script>
   $(function () {
-    //Initialize Select2 Elements
-
     //Date range picker
     $('#reservation').daterangepicker();
     //Date range picker with time picker
     $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
     //Date range as a button
-
-
-
-    //Date picker
     $('#datepicker').datepicker({
       autoclose: true
     });
-
     $('#datepicker1').datepicker({
       autoclose: true
     });
-
-
-
-
   });
 </script>
 
