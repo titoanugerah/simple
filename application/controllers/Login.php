@@ -43,8 +43,7 @@ class Login extends CI_Controller {
 					'privileges' => $privileges
 				);
 				$this->session->set_userdata($data_session);
-
-//				redirect(base_url($privileges."Dashboard"));
+				redirect(base_url($privileges."Dashboard"));
 			} else {
 				//menampilkan laman login
 				$this->load->view('login');
