@@ -297,14 +297,11 @@
 		 align: 'right',
 		 verticalAlign: 'middle'
 	 },
-	 plotOptions: {
-		 series: {
-			 label: {
-				 connectorAllowed: true
-			 },
-			 pointStart: 2010
-		 }
-	 },
+   xAxis: {
+        categories: [<?php foreach ($listPH as $item): ?>
+          <?php  echo '"'.$item->record_time.'",'; ?>
+        <?php endforeach; ?>]
+    },
 	 series: [{
 		 name: 'Suhu',
 		 data: [<?php foreach ($listTemp as $item): ?>
@@ -356,14 +353,11 @@
     		 align: 'right',
     		 verticalAlign: 'middle'
     	 },
-    	 plotOptions: {
-    		 series: {
-    			 label: {
-    				 connectorAllowed: true
-    			 },
-    			 pointStart: 2010
-    		 }
-    	 },
+       xAxis: {
+            categories: [<?php foreach ($listPH as $item): ?>
+              <?php  echo '"'.$item->record_time.'",'; ?>
+            <?php endforeach; ?>]
+        },
     	 series: [{
     		 name: 'PH',
     		 data: [<?php foreach ($listPH as $item): ?>

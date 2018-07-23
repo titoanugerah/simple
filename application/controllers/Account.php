@@ -81,9 +81,4 @@ class Account extends CI_Controller {
 		redirect(base_url('login'));
 	}
 
-	public function test()
-	{
-		$data['notification'] = 'no';
-		$data['view_name'] = 'test';
-		$this->load->view('template',$data);	}
 }

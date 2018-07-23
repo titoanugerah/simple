@@ -9,7 +9,7 @@ $autoload['packages'] = array();
 $autoload['libraries'] = array('database','session');
 $autoload['drivers'] = array();
 //kita juga memakai helper url agar url itu berjalan secara semestinya
-$autoload['helper'] = array('url');
+$autoload['helper'] = array('url','file','download');
 $autoload['config'] = array();
 $autoload['language'] = array();
 $autoload['model'] = array();

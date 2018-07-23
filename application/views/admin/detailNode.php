@@ -37,10 +37,12 @@
         <hr>
 
         <strong><i class="fa fa-phone-square margin-r-5"></i>Nomor Telepon</strong>
-
         <p class="text-muted"><?php  echo $detail->phone_number; ?></p>
-
         <hr>
+        <strong><i class="fa fa-phone-square margin-r-5"></i>Download Data</strong><br>
+        <p><a href="<?php echo base_url('downloadDataPH/'.$detail->id); ?>"> Download Data PH</a></p>
+        <hr>
+
 
       </div>
       <!-- /.box-body -->

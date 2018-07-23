@@ -91,4 +91,48 @@ class Admin extends CI_Controller {
 		$data['notification'] = 'no';
 		$this->load->view('template',$data);
 	}
+
+	public function downloadDataPH($id)
+	{
+		$data['listPH'] = $this->admin_model->getPHSelectedNode($id);
+		$datas = null;
+		foreach ($data['listPH'] as $item) {
+			$datas = $datas." | ".$item->id." | ".$item->node_name." | ".$item->record_time." | ".$item->ph." | \r\n";
+		}
+		$path = './assets/dataPHNode-'.$id.'.txt';
+		if ( ! write_file($path, $datas))
+    {
+			redirect(base_url('detailNode/'.$id));
+    }
+    else
+    {
+			force_download($path,null);
+    }
+
+	}
+
+	public function downloadDataTemp($id)
+	{
+		$data['$listTemp'] = $this->admin_model->getTempSelectedNode($id);
+		$datas = null;
+		foreach ($data['listTemp'] as $item) {
+			$datas = $datas." | ".$item->id." | ".$item->node_name." | ".$item->record_time." | ".$item->temp." | \r\n";
+		}
+		$path = './assets/dataTempNode-'.$id.'.txt';
+		if ( ! write_file($path, $datas))
+    {
+			redirect(base_url('detailNode/'.$id));
+    }
+    else
+    {
+			force_download($path,null);
+    }
+	}
+
+	public function test($id)
+	{
+		$data['type'] = $id;
+		$data['list'] = $this->admin_model->getAllData($id);
+		$this->load->view('test',$data);
+	}
 }

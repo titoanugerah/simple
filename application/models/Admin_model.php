@@ -41,6 +41,12 @@ class Admin_model extends CI_Model{
      $this->db->insert('node',$dataA);
   }
 
+  public function getAllData($id)
+  {
+    $query =  $this->db->get('view_'.$id);
+    return $query->result();
+  }
+
   public function getSelectedNode($id)
   {
     $where = array('id' => $id);
@@ -51,7 +57,7 @@ class Admin_model extends CI_Model{
   public function getTempSelectedNode($id)
   {
     $where = array('id_node' => $id);
-    $query = $this->db->get_where('view_temp',$where);
+    $query = $this->db->get_where('view_temp',$where, 1000);
     return $query->result();
   }
 
