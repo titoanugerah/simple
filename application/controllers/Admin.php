@@ -135,4 +135,6 @@ class Admin extends CI_Controller {
 		$data['list'] = $this->admin_model->getAllData($id);
 		$this->load->view('test',$data);
 	}
+
+	
 }

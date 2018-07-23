@@ -10,6 +10,7 @@ $route['detailNodeClient/(:any)'] = 'client/detailNodeClient/$1';
 $route['listNode'] = 'admin/listNode';
 $route['404_override'] = '';
 $route['downloadDataPH/(:any)'] = 'admin/downloadDataPH/$1';
+$route['downloadDataTemp/(:any)'] = 'admin/downloadDataTemp/$1';
 $route['adminDashboard'] = 'admin/adminDashboard';
 $route['createAccount'] = 'admin/createAccount';
 $route['listAccount'] = 'admin/listAccount';
