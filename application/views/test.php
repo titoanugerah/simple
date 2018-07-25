@@ -1,13 +1,31 @@
 <?php
-if ($type = 'ph') {
-  echo "|  id   | id node | node name | node address| record_time | ph <br>";
-  foreach ($list as $item) {
-    echo "| ".$item->id."| ".$item->id_node."| ".$item->node_name."| ".$item->node_address."| ".$item->record_time."| ".$item->ph." <br>";
-  }
-} else if ($type = 'temp') {
-  echo "|  id   | id node | node name | node address| record_time | ph <br>";
-  foreach ($list as $item) {
-    echo "| ".$item->id."| ".$item->id_node."| ".$item->node_name."| ".$item->node_address."| ".$item->record_time."| ".$item->temp." <br>";
-  }
+
+$a = 'pertalite';
+$b = 2;
+$c = 30000;
+
+if ($a == 'pertalite') {
+  hitungPertalite($b,$c);
+} elseif ($a = 'pertamax') {
+  hitungPertamax($b,$c);
 }
+
+function hitungPertamax($b,$c)
+{
+  $total = $b * 7800;
+  $kembalian = $c - $total;
+  echo "total = ".$total.<br>;
+  echo "kembalian = ".$kembalian;
+}
+
+function hitungPertalite($b,$c)
+{
+  $total = $b * 6000;
+  $kembalian = $c - $total;
+  echo "total = ".$total."<br>";
+  echo "kembalian = ".$kembalian;
+}
+
+
+
  ?>

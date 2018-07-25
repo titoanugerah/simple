@@ -26,14 +26,14 @@ class Client_model extends CI_Model{
 
   public function getTempSelectedNode($id)
   {
-    $where = array('id' => $id);
-    $query = $this->db->get_where('view_temp',$where);
+    $where = array('id_node' => $id);
+    $query = $this->db->get_where('view_temp',$where, 1000);
     return $query->result();
   }
 
   public function getPHSelectedNode($id)
   {
-    $where = array('id' => $id);
+    $where = array('id_node' => $id);
     $query = $this->db->get_where('view_ph',$where);
     return $query->result();
   }
