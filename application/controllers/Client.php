@@ -20,8 +20,10 @@ class Client extends CI_Controller {
 
 	public function clientDashboard()
 	{
+		$data['phInfo'] = $this->client_model->getStatisticPH();
+		$data['tempInfo'] = $this->client_model->getStatisticTemp();
 		$data['menu'] = $this->client_model->getMenu();
-		$data['view_name'] = 'no';
+		$data['view_name'] = 'client/clientDashboard';
 		$data['notification'] = 'no';
 		$this->load->view('template',$data);
 	}
