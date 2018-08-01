@@ -22,6 +22,8 @@ class Client extends CI_Controller {
 	{
 		$data['phInfo'] = $this->client_model->getStatisticPH();
 		$data['tempInfo'] = $this->client_model->getStatisticTemp();
+		$data['phTable'] = $this->client_model->getTempSelectedClient();
+		$data['tempTable'] = $this->client_model->getPHSelectedClient();
 		$data['menu'] = $this->client_model->getMenu();
 		$data['view_name'] = 'client/clientDashboard';
 		$data['notification'] = 'no';

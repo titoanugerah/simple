@@ -129,11 +129,18 @@ class Admin extends CI_Controller {
     }
 	}
 
-	public function test($id)
+	public function test()
 	{
-		$data['type'] = $id;
-		$data['list'] = $this->admin_model->getAllData($id);
-		$this->load->view('test',$data);
+		if ($this->input->get('id_node',false) && $this->input->get('temp',false) && $this->input->get('ph',false)) {
+			$upload = $this->admin_model->insertPHToDB();
+			$this->admin_model->insertTempToDB();
+			echo "Get Data Success <br>";
+			echo "ID_NODE = ".$this->input->get('id_node',false)."\r\n";
+			echo "TEMP = ".$this->input->get('temp',false)."\r\n";
+            echo "PH = ".$this->input->get('ph',false)."\r\n";
+			} else {
+			echo "Error Get Data";
+		}
 	}
 
 

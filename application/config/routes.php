@@ -17,4 +17,4 @@ $route['listAccount'] = 'admin/listAccount';
 $route['detailAccount/(:any)'] = 'admin/detailAccount/$1';
 $route['clientDashboard'] = 'client/clientDashboard';
 $route['translate_uri_dashes'] = FALSE;
-$route['test/(:any)'] = 'admin/test/$1';
+$route['test'] = 'admin/test';

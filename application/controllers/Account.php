@@ -10,6 +10,8 @@ class Account extends CI_Controller {
 		parent::__construct();
 		//intinya biar kontroller ini (account) dapat mengakses model account_model
 		$this->load->model('account_model');
+		$this->load->model('client_model');
+		$this->load->model('admin_model');
 		$this->load->helper('date');
 		$this->load->helper('url');
 	}
@@ -58,6 +60,10 @@ class Account extends CI_Controller {
 
 	public function profile()
 	{
+ 		if ($this->session->userdata['privileges']=='client') {
+			$data['menu'] = $this->client_model->getMenu();
+		}
+
 		if ($this->input->post('updateProfile')) {
 			$this->account_model->updateAccount();
 			$data['notification'] = 'updateSuccess';
@@ -69,6 +75,7 @@ class Account extends CI_Controller {
 			$data['view_name'] = 'profile';
 			$this->load->view('template',$data);
 		} else {
+
 			$data['notification'] = 'no';
 			$data['view_name'] = 'profile';
 			$this->load->view('template',$data);

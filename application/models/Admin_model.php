@@ -140,8 +140,26 @@ class Admin_model extends CI_Model{
       'address' => $this->input->post('address')
      );
      $this->db->insert('account_client',$dataB);
-
    }
+
+   public function insertPHToDB()
+   {
+     $data = array(
+       'id_node' => $this->input->get('id_node',false),
+       'ph' => $this->input->get('ph',false),
+      );
+      $this->db->insert('ph',$data);
+   }
+
+   public function insertTempToDB()
+   {
+     $data = array(
+       'id_node' => $this->input->get('id_node',false),
+       'temp' => $this->input->get('temp',false),
+      );
+      $this->db->insert('temp',$data);
+   }
+
 }
 
 ?>

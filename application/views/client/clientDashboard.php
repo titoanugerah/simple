@@ -3,7 +3,7 @@
 
   <div class="col-lg-6 col-xs-6">
     <!-- small box -->
-    <div class="small-box bg-red">
+    <div class="small-box bg-yellow">
       <div class="inner">
         <h3><?php $phval = 0; foreach ($phInfo as $item) {
           $phval = $phval + $item->warning;
@@ -18,7 +18,7 @@
 
   <div class="col-lg-6 col-xs-6">
     <!-- small box -->
-    <div class="small-box bg-red">
+    <div class="small-box bg-yellow">
       <div class="inner">
         <h3><?php $tempval = 0; foreach ($tempInfo as $item) {
           $tempval = $tempval + $item->warning;

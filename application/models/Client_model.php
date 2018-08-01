@@ -51,6 +51,25 @@ class Client_model extends CI_Model{
     $query = $this->db->get_where('view_temp_warning',$where);
     return $query->result();
   }
+
+  public function getTempSelectedClient()
+  {
+    $where = array(
+      'id_client' => $this->session->userdata['id'],
+      'id_client' => $this->session->userdata['id']
+    );
+    $query = $this->db->get_where('view_temp',$where);
+    return $query->result();
+  }
+
+  public function getTempSelectedClient()
+  {
+    $where = array('id_client' => $this->session->userdata['id']);
+    $query = $this->db->get_where('view_temp',$where);
+    return $query->result();
+  }
+
+
 }
 
 ?>

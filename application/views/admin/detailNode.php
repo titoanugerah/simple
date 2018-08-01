@@ -155,6 +155,7 @@
                         <td><?php echo $item->record_time; ?></td>
                         <td><?php echo $item->ph; ?></td>
                         <td><?php if ($item->ph >= 6.5 && $item->ph <= 8) { echo "Baik";} else { echo " Buruk";}?></td>
+
                       </tr>
                       <?php $i++; endforeach; ?>
                     </tbody>
