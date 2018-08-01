@@ -55,17 +55,18 @@ class Client_model extends CI_Model{
   public function getTempSelectedClient()
   {
     $where = array(
-      'id_client' => $this->session->userdata['id'],
       'id_client' => $this->session->userdata['id']
     );
-    $query = $this->db->get_where('view_temp',$where);
+    $query = $this->db->get_where('view_temp_warning_detail',$where);
     return $query->result();
   }
 
-  public function getTempSelectedClient()
+  public function getPHSelectedClient()
   {
-    $where = array('id_client' => $this->session->userdata['id']);
-    $query = $this->db->get_where('view_temp',$where);
+    $where = array(
+      'id_client' => $this->session->userdata['id']
+    );
+    $query = $this->db->get_where('view_ph_warning_detail',$where);
     return $query->result();
   }
 
