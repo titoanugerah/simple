@@ -11,6 +11,10 @@ class Client extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('client_model');
+		if ($this->session->userdata['privileges']!='client') {
+			redirect(base_url('logout'));
+		}
+
 	}
 
 	public function index()
@@ -22,8 +26,10 @@ class Client extends CI_Controller {
 	{
 		$data['phInfo'] = $this->client_model->getStatisticPH();
 		$data['tempInfo'] = $this->client_model->getStatisticTemp();
-		$data['tempTable'] = $this->client_model->getTempSelectedClient();
-		$data['phTable'] = $this->client_model->getPHSelectedClient();
+		$data['tempWarningTable'] = $this->client_model->getTempSelectedClient();
+		$data['phWarningTable'] = $this->client_model->getPHSelectedClient();
+		$data['tempDangerTable'] = $this->client_model->getTempDangerSelectedClient();
+		$data['phDangerTable'] = $this->client_model->getPHDangerSelectedClient();
 		$data['menu'] = $this->client_model->getMenu();
 		$data['view_name'] = 'client/clientDashboard';
 		$data['notification'] = 'no';

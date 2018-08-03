@@ -70,6 +70,24 @@ class Client_model extends CI_Model{
     return $query->result();
   }
 
+  public function getTempDangerSelectedClient()
+  {
+    $where = array(
+      'id_client' => $this->session->userdata['id']
+    );
+    $query = $this->db->get_where('view_temp_danger_detail',$where);
+    return $query->result();
+  }
+
+  public function getPHDangerSelectedClient()
+  {
+    $where = array(
+      'id_client' => $this->session->userdata['id']
+    );
+    $query = $this->db->get_where('view_ph_danger_detail',$where);
+    return $query->result();
+  }
+
 
 }
 

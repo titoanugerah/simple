@@ -1,8 +1,10 @@
 <?php
+
 //if ($this->session->userdata['privileges']!='admin') {
 //	redirect(base_url('login'));
 //}
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 //deklarasi kelas Login sebagai kontroller
 //penamaan kontroller harus huruf kapital didepan
 class Admin extends CI_Controller {
@@ -12,6 +14,10 @@ class Admin extends CI_Controller {
 		parent::__construct();
 		$this->load->model('account_model');
 		$this->load->model('admin_model');
+		if ($this->session->userdata['privileges']!='admin') {
+			redirect(base_url('logout'));
+		}
+
 	}
 
 	public function index()
@@ -59,7 +65,10 @@ class Admin extends CI_Controller {
 			$this->admin_model->resetPasswordSelectedAccount($id);
 			$data['notification'] = 'updateSuccess';
 		} elseif ($this->input->post('createNode')) {
-			$this->admin_model->createNode($id);
+			$id_node = $this->admin_model->createNode($id);
+			$this->admin_model->createNodeConf($id_node);
+			$this->admin_model->downloadNodeConf();
+
 		}
 		$data['list'] = $this->admin_model->getClientNode($id);
 		$data['detail'] = $this->admin_model->getSelectedAccount($id);
