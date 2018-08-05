@@ -1,8 +1,6 @@
 <?php
 
-//if ($this->session->userdata['privileges']!='admin') {
-//	redirect(base_url('login'));
-//}
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 //deklarasi kelas Login sebagai kontroller
@@ -14,7 +12,9 @@ class Admin extends CI_Controller {
 		parent::__construct();
 		$this->load->model('account_model');
 		$this->load->model('admin_model');
-		if ($this->session->userdata['privileges']!='admin') {
+		if ($this->input->get('id_node','ph','temp')) {
+
+		} else if ($this->session->userdata['privileges']!='admin') {
 			redirect(base_url('logout'));
 		}
 
@@ -68,6 +68,9 @@ class Admin extends CI_Controller {
 			$id_node = $this->admin_model->createNode($id);
 			$this->admin_model->createNodeConf($id_node);
 			$this->admin_model->downloadNodeConf();
+            $this->admin_model->deleteCurrentPH($id_node);
+            $this->admin_model->deleteCurrentTemp($id_node);
+            redirect(base_url('listNode'));
 
 		}
 		$data['list'] = $this->admin_model->getClientNode($id);
@@ -84,6 +87,8 @@ class Admin extends CI_Controller {
 			$data['notification'] = 'updateSuccess';
 		} elseif ($this->input->post('deleteNode')) {
 			$this->admin_model->deleteNode($id);
+            $this->admin_model->deleteCurrentPH($id);
+            $this->admin_model->deleteCurrentTemp($id);
 			redirect(base_url('listAccount'));
 		}
 		$data['listTemp'] = $this->admin_model->getTempSelectedNode($id);
@@ -147,6 +152,17 @@ class Admin extends CI_Controller {
 			echo "ID_NODE = ".$this->input->get('id_node',false)."\r\n";
 			echo "TEMP = ".$this->input->get('temp',false)."\r\n";
             echo "PH = ".$this->input->get('ph',false)."\r\n";
+/*            if(($this->input->get('temp')<21 or $this->input->get('temp')>35) && ($this->input->get('ph')<5 or $this->input->get('ph')>10)){
+                $this->admin_model->sentTempReport($this->input->get('id_node'),$this->input->get('temp'));
+                $this->admin_model->sentPHReport($this->input->get('id_node'),$this->input->get('ph'));
+                
+            } else if($this->input->get('temp')<21 or $this->input->get('temp')>35){
+                $this->admin_model->sentTempReport($this->input->get('id_node'),$this->input->get('temp'));
+                
+            } else if($this->input->get('ph')<5 or $this->input->get('ph')>10){
+                $this->admin_model->sentPHReport($this->input->get('id_node'),$this->input->get('ph'));
+            }
+*/
 			} else {
 			echo "Error Get Data";
 		}

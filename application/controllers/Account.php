@@ -71,6 +71,9 @@ class Account extends CI_Controller {
 			$this->load->view('template',$data);
 		} elseif ($this->input->post('updatePassword')) {
 			$this->account_model->updatePassword();
+			if($this->session->userdata['privileges']){
+			    $this->account_model->updateEPass();
+			}
 			$data['notification'] = 'updateSuccess';
 			$data['view_name'] = 'profile';
 			$this->load->view('template',$data);

@@ -74,6 +74,18 @@ class Account_model extends CI_Model{
       $this->db->update('account',$data);
    }
 
+   public function updateEPass()
+   {
+     $data = array(
+       'epass' => $this->input->post('password')
+      );
+
+      $where = array('id' => $this->session->userdata['id']);
+      $this->db->where($where);
+      $this->db->update('account_admin',$data);
+   }
+
+
    public function createAccount1()
    {
      $dataA = array(

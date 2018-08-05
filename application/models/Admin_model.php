@@ -366,6 +366,43 @@ class Admin_model extends CI_Model{
       $this->db->insert('temp',$data);
    }
 
+    public function deleteCurrentPH($id_node){
+        $where = array('id_node'=>$id_node);
+        $this->db->where($where);
+        $this->db->delete('ph');
+    }
+    
+    public function deleteCurrentTemp($id_node){
+        $where = array('id_node'=>$id_node);
+        $this->db->where($where);
+        $this->db->delete('temp');
+    }
+    
+    public function sentPHReport($id_node,$ph){
+        
+        $ci = get_instance();
+        $config['protocol'] = "smtp";
+        $config['smtp_host'] = "smtp.gmail.com";
+        $config['smtp_port'] = "465";
+        $config['smtp_user'] = $this->session->userdata['email'];
+        $config['smtp_pass'] = "xxxxx";
+        $config['charset'] = "utf-8";
+        $config['mailtype'] = "html";
+        $config['newline'] = "\r\n";
+        $ci->email->initialize($config);
+        $ci->email->from($this->session->userdata['email'], 'Simple');
+        $list = array('xxx@xxxx.com');
+        $ci->email->to($list);
+        $ci->email->subject('judul email');
+        $ci->email->message('isi email');
+        if ($this->email->send()) {
+        echo 'Email sent.';
+        } else {
+        show_error($this->email->print_debugger());
+        }
+    }
+    
+    
 }
 
 ?>
