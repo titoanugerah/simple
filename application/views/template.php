@@ -412,10 +412,11 @@
     //Date range picker
     $('#reservation').daterangepicker();
     //Date range picker with time picker
-    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'YYYY-MM-DD h:mm A'});
     //Date range as a button
     $('#datepicker').datepicker({
-      autoclose: true
+      autoclose: true,
+      format: 'yyyy-mm-dd'
     });
     $('#datepicker1').datepicker({
       autoclose: true

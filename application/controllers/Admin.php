@@ -87,10 +87,32 @@ class Admin extends CI_Controller {
 			$data['notification'] = 'updateSuccess';
 		} elseif ($this->input->post('deleteNode')) {
 			$this->admin_model->deleteNode($id);
-            $this->admin_model->deleteCurrentPH($id);
-            $this->admin_model->deleteCurrentTemp($id);
+			$this->admin_model->deleteCurrentPH($id);
+			$this->admin_model->deleteCurrentTemp($id);
 			redirect(base_url('listAccount'));
+		} elseif ($this->input->post('downloadData')) {
+			$data['downloadData'] = $this->admin_model->goDownloadData($id);
+			$datas = null;
+			if ($this->input->post('data')=='ph') {
+				foreach ($data['downloadData'] as $item) {
+					$datas = $datas." | ".$item->id." | ".$item->node_name." | ".$item->record_time." | ".$item->ph." | \r\n";
+				}
+			} else {
+				foreach ($data['downloadData'] as $item) {
+					$datas = $datas." | ".$item->id." | ".$item->node_name." | ".$item->record_time." | ".$item->temp." | \r\n";
+				}
+			}
+			$path = './assets/report'.$this->input->post('data').'Node'.$id.'.txt';
+			if ( ! write_file($path, $datas))
+	    {
+				redirect(base_url('detailNode/'.$id));
+	    }
+	    else
+	    {
+				force_download($path,null);
+	    }
 		}
+		$data['download'] = $this->admin_model->getDownloadedData($id);
 		$data['listTemp'] = $this->admin_model->getTempSelectedNode($id);
 		$data['listPH'] = $this->admin_model->getPHSelectedNode($id);
 		$data['detail'] = $this->admin_model->getSelectedNode($id);
@@ -106,67 +128,30 @@ class Admin extends CI_Controller {
 		$this->load->view('template',$data);
 	}
 
-	public function downloadDataPH($id)
-	{
-		$data['listPH'] = $this->admin_model->getPHSelectedNode($id);
-		$datas = null;
-		foreach ($data['listPH'] as $item) {
-			$datas = $datas." | ".$item->id." | ".$item->node_name." | ".$item->record_time." | ".$item->ph." | \r\n";
-		}
-		$path = './assets/dataPHNode-'.$id.'.txt';
-		if ( ! write_file($path, $datas))
-    {
-			redirect(base_url('detailNode/'.$id));
-    }
-    else
-    {
-			force_download($path,null);
-    }
-
-	}
-
-	public function downloadDataTemp($id)
-	{
-		$data['$listTemp'] = $this->admin_model->getTempSelectedNode($id);
-		$datas = null;
-		foreach ($data['listTemp'] as $item) {
-			$datas = $datas." | ".$item->id." | ".$item->node_name." | ".$item->record_time." | ".$item->temp." | \r\n";
-		}
-		$path = './assets/dataTempNode-'.$id.'.txt';
-		if ( ! write_file($path, $datas))
-    {
-			redirect(base_url('detailNode/'.$id));
-    }
-    else
-    {
-			force_download($path,null);
-    }
-	}
-
 	public function test()
 	{
 		if ($this->input->get('id_node',false) && $this->input->get('temp',false) && $this->input->get('ph',false)) {
-			$upload = $this->admin_model->insertPHToDB();
+			$this->admin_model->insertPHToDB();
 			$this->admin_model->insertTempToDB();
+			$epass = $this->admin_model->getEpass();
+			$custMail = $this->admin_model->getSelectedNode($this->input->get('id_node',null));
 			echo "Get Data Success <br>";
-			echo "ID_NODE = ".$this->input->get('id_node',false)."\r\n";
-			echo "TEMP = ".$this->input->get('temp',false)."\r\n";
-            echo "PH = ".$this->input->get('ph',false)."\r\n";
-/*            if(($this->input->get('temp')<21 or $this->input->get('temp')>35) && ($this->input->get('ph')<5 or $this->input->get('ph')>10)){
-                $this->admin_model->sentTempReport($this->input->get('id_node'),$this->input->get('temp'));
-                $this->admin_model->sentPHReport($this->input->get('id_node'),$this->input->get('ph'));
-                
-            } else if($this->input->get('temp')<21 or $this->input->get('temp')>35){
-                $this->admin_model->sentTempReport($this->input->get('id_node'),$this->input->get('temp'));
-                
-            } else if($this->input->get('ph')<5 or $this->input->get('ph')>10){
-                $this->admin_model->sentPHReport($this->input->get('id_node'),$this->input->get('ph'));
-            }
-*/
-			} else {
+			echo "ID_NODE = ".$this->input->get('id_node',false)."<br>";
+			echo "TEMP = ".$this->input->get('temp',false)."<br>";
+			echo "PH = ".$this->input->get('ph',false)."<br>";
+			if(($this->input->get('temp')<21 or $this->input->get('temp')>35) && ($this->input->get('ph')<5 or $this->input->get('ph')>10)){
+				$this->admin_model->sentTempReport($this->input->get('id_node'),$this->input->get('temp'),$epass->email,$epass->epass,$custMail->email);
+				$this->admin_model->sentPHReport($this->input->get('id_node'),$this->input->get('ph'),$epass->email,$epass->epass,$custMail->email);
+
+			} else if($this->input->get('temp')<21 or $this->input->get('temp')>35){
+				$this->admin_model->sentTempReport($this->input->get('id_node'),$this->input->get('temp'),$epass->email,$epass->epass,$custMail->email);
+
+			} else if($this->input->get('ph')<5 or $this->input->get('ph')>10){
+				$this->admin_model->sentPHReport($this->input->get('id_node'),$this->input->get('ph'),$epass->email,$epass->epass,$custMail->email);
+			}
+		} else {
 			echo "Error Get Data";
 		}
 	}
-
 
 }

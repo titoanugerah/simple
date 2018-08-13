@@ -8,6 +8,7 @@ class Admin_model extends CI_Model{
     $this->load->database();
     //untuk mengakses library helper dari file
     $this->load->helper('file');
+    $this->load->library('email');
   }
 
   public function getListAccount()
@@ -362,47 +363,108 @@ class Admin_model extends CI_Model{
      $data = array(
        'id_node' => $this->input->get('id_node',false),
        'temp' => $this->input->get('temp',false),
-      );
-      $this->db->insert('temp',$data);
+     );
+     $this->db->insert('temp',$data);
    }
 
-    public function deleteCurrentPH($id_node){
-        $where = array('id_node'=>$id_node);
-        $this->db->where($where);
-        $this->db->delete('ph');
+    public function deleteCurrentPH($id_node)
+    {
+      $where = array('id_node'=>$id_node);
+      $this->db->where($where);
+      $this->db->delete('ph');
     }
-    
-    public function deleteCurrentTemp($id_node){
-        $where = array('id_node'=>$id_node);
-        $this->db->where($where);
-        $this->db->delete('temp');
-    }
-    
-    public function sentPHReport($id_node,$ph){
-        
-        $ci = get_instance();
-        $config['protocol'] = "smtp";
-        $config['smtp_host'] = "smtp.gmail.com";
-        $config['smtp_port'] = "465";
-        $config['smtp_user'] = $this->session->userdata['email'];
-        $config['smtp_pass'] = "xxxxx";
-        $config['charset'] = "utf-8";
-        $config['mailtype'] = "html";
-        $config['newline'] = "\r\n";
-        $ci->email->initialize($config);
-        $ci->email->from($this->session->userdata['email'], 'Simple');
-        $list = array('xxx@xxxx.com');
-        $ci->email->to($list);
-        $ci->email->subject('judul email');
-        $ci->email->message('isi email');
-        if ($this->email->send()) {
-        echo 'Email sent.';
-        } else {
-        show_error($this->email->print_debugger());
-        }
-    }
-    
-    
-}
 
+    public function deleteCurrentTemp($id_node)
+    {
+      $where = array('id_node'=>$id_node);
+      $this->db->where($where);
+      $this->db->delete('temp');
+    }
+
+    public function sentPHReport($id_node,$ph,$email,$pass,$custMail)
+    {
+    $config['protocol'] = "smtp";
+    $config['smtp_host'] = "ssl://smtp.gmail.com";
+    $config['smtp_port'] = "465";
+    $config['smtp_user'] = $email;
+    $config['smtp_pass'] = $pass;
+    $config['charset'] = "utf-8";
+    $config['mailtype'] = "html";
+    $config['newline'] = "\r\n";
+    $this->email->initialize($config);
+    $this->email->from($email, 'Admin SIMPLE');
+    $this->email->to($custMail);
+    $this->email->subject('Warning pH From Node'.$id_node);
+    $this->email->message('Dear pelanggan Kami, Bersamaan dengan email ini memberitahukan bahwa pH pada Perangkat anda (Node'.$id_node.') dalam status BURUK ('.$ph.'). Terima Kasih');
+    if ($this->email->send()) {
+      echo 'Email Terkirim';
+    } else {
+      echo 'Email Tidak Terkirim';
+    }
+    }
+
+    public function getEpass()
+    {
+      $where = array('id' => 1);
+      $query = $this->db->get_where('view_admin',$where);
+      return $query->row();
+    }
+
+    public function sentTempReport($id_node,$temp,$email,$pass,$custMail)
+    {
+      $config['protocol'] = "smtp";
+      $config['smtp_host'] = "ssl://smtp.gmail.com";
+      $config['smtp_port'] = "465";
+      $config['smtp_user'] = $email;
+      $config['smtp_pass'] = $pass;
+      $config['charset'] = "utf-8";
+      $config['mailtype'] = "html";
+      $config['newline'] = "\r\n";
+      $this->email->initialize($config);
+      $this->email->from($email, 'Admin SIMPLE');
+      $this->email->to($custMail);
+      $this->email->subject('Warning Temp From Node'.$id_node);
+      $this->email->message('Dear pelanggan Kami, Bersamaan dengan email ini memberitahukan bahwa suhu pada Perangkat anda (Node'.$id_node.') dalam status BURUK ('.$temp.'). Terima Kasih');
+      if ($this->email->send()) {
+        echo 'Email Terkirim';
+      } else {
+        echo 'Email Tidak Terkirim';
+      }
+
+    }
+
+    public function getDownloadedData($id_node)
+    {
+      $where = array(
+        'id_node' => $id_node
+        );
+      $query = $this->db->get_where('view_download_ph',$where);
+      return $query->result();
+    }
+
+    public function goDownloadData($id_node)
+    {
+
+      $year = $this->input->post('year');
+      $month = $this->input->post('month');
+      $week = $this->input->post('week');
+      $date = $this->input->post('date');
+      if ($year=='') {
+        $year = 'null';
+      }
+      if ($month=='') {
+        $month = 'null';
+      }
+      if ($week=='') {
+        $week = 'null';
+      }
+      if ($date=='') {
+        $date = 'null';
+      }
+      $query = $this->db->query('select * from view_download_'.$this->input->post('data').' where id_node = '.$id_node.' and (year = '.$year.' or month = '.$month.' or week = '.$week.' or date = "'.$date.'")');
+      return $query->result();
+
+    }
+
+  }
 ?>
