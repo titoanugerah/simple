@@ -88,6 +88,49 @@ class Client_model extends CI_Model{
     return $query->result();
   }
 
+  public function updateNode($id)
+  {
+    $data = array(
+      'node_name' => $this->input->post('node_name'),
+     );
+     $where = array('id'=>$id);
+     $this->db->where($where);
+     $this->db->update('node',$data);
+  }
+
+  public function getDownloadedData($id_node)
+  {
+    $where = array(
+      'id_node' => $id_node
+      );
+    $query = $this->db->get_where('view_download_ph',$where);
+    return $query->result();
+  }
+
+  public function goDownloadData($id_node)
+  {
+
+    $year = $this->input->post('year');
+    $month = $this->input->post('month');
+    $week = $this->input->post('week');
+    $date = $this->input->post('date');
+    if ($year=='') {
+      $year = 'null';
+    }
+    if ($month=='') {
+      $month = 'null';
+    }
+    if ($week=='') {
+      $week = 'null';
+    }
+    if ($date=='') {
+      $date = 'null';
+    }
+    $query = $this->db->query('select * from view_download_'.$this->input->post('data').' where id_node = '.$id_node.' and (year = '.$year.' or month = '.$month.' or week = '.$week.' or date = "'.$date.'")');
+    return $query->result();
+
+  }
+
 
 }
 

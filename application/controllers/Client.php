@@ -38,12 +38,38 @@ class Client extends CI_Controller {
 
 	public function detailNodeClient($id)
 	{
+		$data['notification'] = 'no';
+		if ($this->input->post('updateNode')) {
+			$this->client_model->updateNode($id);
+			$data['notification'] = 'updateSuccess';
+		} elseif ($this->input->post('downloadData')) {
+			$data['downloadData'] = $this->client_model->goDownloadData($id);
+			$datas = null;
+			if ($this->input->post('data')=='ph') {
+				foreach ($data['downloadData'] as $item) {
+					$datas = $datas." | ".$item->id." | ".$item->node_name." | ".$item->record_time." | ".$item->ph." | \r\n";
+				}
+			} else {
+				foreach ($data['downloadData'] as $item) {
+					$datas = $datas." | ".$item->id." | ".$item->node_name." | ".$item->record_time." | ".$item->temp." | \r\n";
+				}
+			}
+			$path = './assets/report'.$this->input->post('data').'Node'.$id.'.txt';
+			if ( ! write_file($path, $datas))
+	    {
+				redirect(base_url('detailNode/'.$id));
+	    }
+	    else
+	    {
+				force_download($path,null);
+	    }
+		}
+		$data['download'] = $this->client_model->getDownloadedData($id);
 		$data['menu'] = $this->client_model->getMenu();
 		$data['detail'] = $this->client_model->getSelectedNode($id);
 		$data['listPH'] = $this->client_model->getPHSelectedNode($id);
 		$data['listTemp'] = $this->client_model->getTempSelectedNode($id);
 		$data['view_name'] = 'client/detailNodeClient';
-		$data['notification'] = 'no';
 		$this->load->view('template',$data);
 	}
 }

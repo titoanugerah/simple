@@ -54,15 +54,11 @@
         <li class="active"><a href="#editProfile" data-toggle="tab">Edit Akun</a></li>
         <li class=""><a href="#listTemp" data-toggle="tab">Data Suhu</a></li>
         <li class=""><a href="#listPH" data-toggle="tab">Data PH</a></li>
+        <li class=""><a href="#downloadReport" data-toggle="tab">Unduh Data</a></li>
       </ul>
       <div class="tab-content">
-        <!-- /.tab-pane -->
-
-        <!-- /.tab-pane -->
-
         <div class="active tab-pane" id="editProfile">
           <form class="form-horizontal" method="post">
-
             <div class="form-group">
               <label for="inputName" class="col-sm-2 control-label">Nama Perangkat</label>
               <div class="col-sm-10">
@@ -73,23 +69,24 @@
             <div class="form-group">
               <label for="inputName" class="col-sm-2 control-label">Letak Perangkat</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Letak Perangkat" name="address" value="<?php echo $detail->node_address; ?>" disabled>
+                <input type="text" class="form-control" placeholder="Letak Perangkat" name="address" value="<?php echo $detail->node_address; ?>">
               </div>
             </div>
 
             <div class="form-group">
               <label for="inputName" class="col-sm-2 control-label">Status</label>
               <div class="col-sm-10">
-              <select class="form-control" name="status" disabled>
-                <option value="1" <?php if ($detail->status==1){ echo "selected";} ?>>Aktif</option>
-                <option value="0" <?php if ($detail->status==0){ echo "selected";} ?>>Nonaktif</option>
-              </select>
+                <select class="form-control" name="status">
+                  <option value="1" <?php if ($detail->status==1){ echo "selected";} ?>>Aktif</option>
+                  <option value="0" <?php if ($detail->status==0){ echo "selected";} ?>>Nonaktif</option>
+                </select>
+              </div>
             </div>
-          </div>
 
             <div class="form-group">
               <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-success" name="updateNode" value="updateNode">Simpan Data</button>
+                <button type="submit" class="btn btn-danger" name="deleteNode" value="deleteNode">Hapus Node</button>
               </div>
             </div>
           </form>
@@ -97,7 +94,6 @@
 
         <div class="tab-pane" id="listTemp">
           <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-
             <div class="box-body">
               <table id="example2" class="table table-bordered table-striped">
                 <thead>
@@ -115,7 +111,6 @@
                       <td><?php echo $item->record_time; ?></td>
                       <td><?php echo $item->temp." c"; ?></td>
                       <td><?php if ($item->temp >= 25 && $item->temp <= 30) { echo "Baik";} else { echo " Buruk";}?></td>
-
                     </tr>
                     <?php $i++; endforeach; ?>
                   </tbody>
@@ -166,15 +161,115 @@
                   </table>
                 </div>
             </div>
+            <div class="tab-pane" id="downloadReport">
+              <div class="box-body">
+                <div class="nav-tabs-custom">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a href="#byDate" data-toggle="tab">Per Hari</a></li>
+                    <li class=""><a href="#custom" data-toggle="tab">Lainnya</a></li>
+                  </ul>
+                  <div class="tab-content">
+                    <div class="active tab-pane" id="byDate">
+                      <form class="form-horizontal" method="post">
+                        <div class="form-group">
+                          <label for="inputName" class="col-sm-2 control-label">Data</label>
+                          <div class="col-sm-10">
+                            <select class="form-control" name="data">
+                              <option value="ph">pH</option>
+                              <option value="temp">Suhu</option>
+                            </select>
+                          </div>
+                        </div>
 
+                        <div class="form-group">
+                          <label for="inputName" class="col-sm-2 control-label">Tanggal</label>
+                          <div class="col-sm-10">
+                            <input type="text" name="date" class="form-control pull-right" id="datepicker">
+
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-success" name="downloadData" value="downloadData">Unduh Data</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="tab-pane" id="custom">
+                      <form class="form-horizontal" method="post">
+                        <div class="form-group">
+                          <label for="inputName" class="col-sm-2 control-label">Data</label>
+                          <div class="col-sm-10">
+                            <select class="form-control" name="data">
+                              <option value="ph">pH</option>
+                              <option value="temp">Suhu</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="inputName" class="col-sm-2 control-label">Tahun</label>
+                          <div class="col-sm-10">
+                            <select class="form-control" name="year">
+                              <option value=""></option>
+                              <?php $a=0; foreach ($download as $item): ?>
+                                <?php if ($a != $item->year): ?>
+                                  <option value="<?php echo $item->year; ?>"><?php echo $item->year; $a=$item->year; ?></option>
+                                <?php endif; ?>
+                              <?php endforeach; ?>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="inputName" class="col-sm-2 control-label">Bulan</label>
+                          <div class="col-sm-10">
+                            <select class="form-control" name="month">
+                              <option value=""></option>
+                              <?php $a=0; foreach ($download as $item): ?>
+                                <?php if ($a != $item->month): ?>
+                                  <option value="<?php echo $item->month; ?>"><?php echo $item->monthName; $a=$item->month; ?></option>
+                                <?php endif; ?>
+                              <?php endforeach; ?>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="inputName" class="col-sm-2 control-label">Minggu</label>
+                          <div class="col-sm-10">
+                            <select class="form-control" name="week">
+                              <option value=""></option>
+                              <?php $a=0; foreach ($download as $item): ?>
+                                <?php if ($a != $item->week): ?>
+                                  <option value="<?php echo $item->week; ?>"><?php echo $item->week; $a=$item->week; ?></option>
+                                <?php endif; ?>
+                              <?php endforeach; ?>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-success" name="downloadData" value="downloadData">Unduh Data</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+              <!-- /.box-body -->
+            </div>
+          </div>
         </div>
-
-        <!-- /.tab-pane -->
-
+        <!-- /.tab-content -->
       </div>
-      <!-- /.tab-content -->
+      <!-- /.nav-tabs-custom -->
     </div>
-    <!-- /.nav-tabs-custom -->
+    <!-- /.col -->
   </div>
   <!-- /.col -->
 </div>

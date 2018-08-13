@@ -324,14 +324,24 @@
        <?php echo $item->temp.","; ?>
      <?php endforeach; ?>]
 	 },{
-		 name: 'Batas Minimum',
+		 name: 'Batas Minimum Peringatan',
 		 data: [<?php foreach ($listTemp as $item): ?>
-       <?php echo "25".","; ?>
+       <?php echo "24".","; ?>
      <?php endforeach; ?>]
 	 },{
-		 name: 'Batas Maksimum',
+		 name: 'Batas Maksimum Peringatan',
 		 data: [<?php foreach ($listTemp as $item): ?>
-       <?php echo "30".","; ?>
+       <?php echo "31".","; ?>
+     <?php endforeach; ?>]
+   },{
+		 name: 'Batas Minimum Buruk',
+		 data: [<?php foreach ($listTemp as $item): ?>
+       <?php echo "20.9".","; ?>
+     <?php endforeach; ?>]
+	 },{
+		 name: 'Batas Maksimum Buruk',
+		 data: [<?php foreach ($listTemp as $item): ?>
+       <?php echo "35.1".","; ?>
      <?php endforeach; ?>]
 	 }],
     responsive: {
@@ -380,14 +390,24 @@
            <?php echo $item->ph.","; ?>
          <?php endforeach; ?>]
     	 },{
-    		 name: 'Batas Minimum',
+    		 name: 'Batas Minimum Peringatan',
     		 data: [<?php foreach ($listPH as $item): ?>
-           <?php echo "6.5".","; ?>
+           <?php echo "6.4".","; ?>
          <?php endforeach; ?>]
     	 },{
-    		 name: 'Batas Maksimum',
+    		 name: 'Batas Maksimum Peringatan',
     		 data: [<?php foreach ($listPH as $item): ?>
-           <?php echo "10".","; ?>
+           <?php echo "9".","; ?>
+         <?php endforeach; ?>]
+       },{
+    		 name: 'Batas Minimum Buruk',
+    		 data: [<?php foreach ($listPH as $item): ?>
+           <?php echo "4.9".","; ?>
+         <?php endforeach; ?>]
+    	 },{
+    		 name: 'Batas Maksimum Buruk',
+    		 data: [<?php foreach ($listPH as $item): ?>
+           <?php echo "10.1".","; ?>
          <?php endforeach; ?>]
     	 }],
         responsive: {
