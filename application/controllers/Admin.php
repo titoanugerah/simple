@@ -130,27 +130,35 @@ class Admin extends CI_Controller {
 
 	public function test()
 	{
-		if ($this->input->get('id_node',false) && $this->input->get('temp',false) && $this->input->get('ph',false)) {
-			$this->admin_model->insertPHToDB();
-			$this->admin_model->insertTempToDB();
-			$epass = $this->admin_model->getEpass();
-			$custMail = $this->admin_model->getSelectedNode($this->input->get('id_node',null));
-			echo "Get Data Success <br>";
-			echo "ID_NODE = ".$this->input->get('id_node',false)."<br>";
-			echo "TEMP = ".$this->input->get('temp',false)."<br>";
-			echo "PH = ".$this->input->get('ph',false)."<br>";
-			if(($this->input->get('temp')<21 or $this->input->get('temp')>35) && ($this->input->get('ph')<5 or $this->input->get('ph')>10)){
+		if ($this->input->get('id_node') && $this->input->get('temp') || $this->input->get('ph')) {
+	  	if($this->input->get('temp')==0){
+				echo "Data suhu tidak disimpan : perangkat Node Error ";
+			} elseif($this->input->get('ph')==0){
+				echo "Data ph tidak disimpan : perangkat Node Error ";
+			} elseif(($this->input->get('ph')==0) || ($this->input->get('temp')==0)){
+				echo "Data ph dan suhu tidak disimpan : perangkat Node Error ";
+			} else {
+				$this->admin_model->insertPHToDB();
+				$this->admin_model->insertTempToDB();
+				$epass = $this->admin_model->getEpass();
+				$custMail = $this->admin_model->getSelectedNode($this->input->get('id_node',null));
+				echo "Get Data Success <br>";
+				echo "ID_NODE = ".$this->input->get('id_node',false)."<br>";
+				echo "TEMP = ".$this->input->get('temp',false)."<br>";
+				echo "PH = ".$this->input->get('ph',false)."<br>";
+			}
+			if((($this->input->get('temp')!=0) && $this->input->get('temp')<21 or $this->input->get('temp')>35) && (($this->input->get('ph')!=0) && $this->input->get('ph')<5 or $this->input->get('ph')>10)){
 				$this->admin_model->sentTempReport($this->input->get('id_node'),$this->input->get('temp'),$epass->email,$epass->epass,$custMail->email);
 				$this->admin_model->sentPHReport($this->input->get('id_node'),$this->input->get('ph'),$epass->email,$epass->epass,$custMail->email);
-
-			} else if($this->input->get('temp')<21 or $this->input->get('temp')>35){
+			} else if(($this->input->get('temp')!=0) && $this->input->get('temp')<21 or $this->input->get('temp')>35){
 				$this->admin_model->sentTempReport($this->input->get('id_node'),$this->input->get('temp'),$epass->email,$epass->epass,$custMail->email);
-
-			} else if($this->input->get('ph')<5 or $this->input->get('ph')>10){
+			} else if(($this->input->get('temp')!=0) && $this->input->get('ph')<5 or $this->input->get('ph')>10){
 				$this->admin_model->sentPHReport($this->input->get('id_node'),$this->input->get('ph'),$epass->email,$epass->epass,$custMail->email);
 			}
-		} else {
-			echo "Error Get Data";
+
+
+	} else {
+			echo "Node Error";
 		}
 	}
 

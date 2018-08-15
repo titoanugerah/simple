@@ -321,7 +321,7 @@ class Admin_model extends CI_Model{
   public function resetPasswordSelectedAccount($id)
   {
     $where = array('id' => $id );
-    $data = array('password' => md5('0000'));
+    $data = array('password' => ('0000'));
     $this->db->where($where);
     $this->db->update('account',$data);
   }
@@ -330,7 +330,7 @@ class Admin_model extends CI_Model{
    {
      $dataA = array(
        'username' => $this->input->post('username'),
-       'password' => md5('0000'),
+       'password' => ('0000'),
        'privileges'=> 'client'
       );
 
@@ -414,6 +414,7 @@ class Admin_model extends CI_Model{
     {
       $config['protocol'] = "smtp";
       $config['smtp_host'] = "ssl://smtp.gmail.com";
+      //$config['smtp_host'] = "smtp.gmail.com";
       $config['smtp_port'] = "465";
       $config['smtp_user'] = $email;
       $config['smtp_pass'] = $pass;

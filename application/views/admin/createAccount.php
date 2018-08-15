@@ -3,7 +3,7 @@
   <div class="col-md-12">
     <div class="nav-tabs-custom">
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#createAccount" data-toggle="tab">Tampah Akun Pelanggan</a></li>
+        <li class="active"><a href="#createAccount" data-toggle="tab">Tambah Akun Pelanggan</a></li>
       </ul>
       <div class="tab-content">
         <!-- /.tab-pane -->

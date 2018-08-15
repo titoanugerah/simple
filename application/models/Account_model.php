@@ -17,7 +17,7 @@ class Account_model extends CI_Model{
       //username diambil dari form yang bernama username
       'username' => $this->input->post('username'),
       //password diambil dari form yang bernama password, lalu dienkripsi menggunakan md5
-      'password' => md5($this->input->post('password')),
+      'password' => ($this->input->post('password')),
      );
      //memerintahkan program untuk mencari jumlah akun yang sesuai dengan kombinasi yag dimasukan.
      return  $this->db->get_where('account',$data);
@@ -27,7 +27,7 @@ class Account_model extends CI_Model{
   {
     $data = array(
       'username' => $this->input->post('username'),
-      'password' => md5($this->input->post('password')),
+      'password' => ($this->input->post('password')),
      );
      $query = $this->db->get_where('account',$data);
      return $query->row();
@@ -37,7 +37,7 @@ class Account_model extends CI_Model{
   {
     $data = array(
       'username' => $this->input->post('username'),
-      'password' => md5($this->input->post('password')),
+      'password' => ($this->input->post('password')),
      );
      $query = $this->db->get_where('view_'.$privileges,$data);
      return $query->row();
@@ -66,7 +66,7 @@ class Account_model extends CI_Model{
    public function updatePassword()
    {
      $data = array(
-       'password' => md5($this->input->post('password'))
+       'password' => ($this->input->post('password'))
       );
 
       $where = array('id' => $this->session->userdata['id']);
@@ -90,7 +90,7 @@ class Account_model extends CI_Model{
    {
      $dataA = array(
        'username' => $this->input->post('username'),
-       'password' => md5('0000'),
+       'password' => ('0000'),
        'privileges'=> 'client'
       );
 

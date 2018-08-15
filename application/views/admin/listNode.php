@@ -9,21 +9,17 @@
           <tr>
             <th>No.</th>
             <th>ID Node</th>
-            <th>Nama Perangkat</th>
             <th>Nama Pelanggan</th>
             <th>Status</th>
-            <th>Opsi</th>
           </tr>
         </thead>
         <tbody>
           <?php $i=1; foreach ($list as $item) : ?>
             <tr>
               <td><?php echo $i; ?></td>
-              <td><?php echo "NODE".$item->id; ?></td>
-              <td><?php echo $item->node_name; ?></td>
+              <td><a href="<?php echo base_url('detailNode/'.$item->id);?>"><?php echo 'NODE'.$item->id; ?></a></td>
               <td><?php echo $item->fullname; ?></td>
               <td><?php if($item->status==1){ echo "Aktif";} else { echo "Nonaktif";} ?></td>
-              <td><a href="<?php echo base_url('detailNode/'.$item->id);?>">Detail</a></td>
             </tr>
             <?php $i++; endforeach; ?>
           </tbody>
@@ -31,10 +27,8 @@
             <tr>
               <th>No.</th>
               <th>ID Node</th>
-              <th>Nama Perangkat</th>
               <th>Nama Pelanggan</th>
               <th>Status</th>
-              <th>Opsi</th>
             </tr>
           </tfoot>
         </table>
