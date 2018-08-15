@@ -380,10 +380,34 @@ class Admin_model extends CI_Model{
       $this->db->where($where);
       $this->db->delete('temp');
     }
-
+    /*
     public function sentPHReport($id_node,$ph,$email,$pass,$custMail)
     {
-    $config['protocol'] = "smtp";
+    $config['protocol'] = "mail";
+    $config['smtp_host'] = "ssl://smtp.gmail.com";
+    $config['smtp_port'] = "465";
+    $config['smtp_user'] = $email;
+    $config['smtp_pass'] = $pass;
+    $config['charset'] = "utf-8";
+    $config['mailtype'] = "html";
+    $config['newline'] = "\r\n";
+    $this->email->initialize($config);
+    $this->email->from($email, 'Admin SIMPLE');
+    $this->email->to($custMail);
+    $this->email->subject('Warning pH From Node'.$id_node);
+    $this->email->message('Dear pelanggan Kami, Bersamaan dengan email ini memberitahukan bahwa pH pada Perangkat anda (Node'.$id_node.') dalam status BURUK ('.$ph.'). Terima Kasih');
+    if ($this->email->send()) {
+      echo 'Email Terkirim';
+      echo 'Email : '.$custMail;
+
+    } else {
+      echo 'Email Tidak Terkirim';
+    }
+  }*/
+
+  public function sentPHReport($id_node,$ph,$email,$pass,$custMail)
+  {
+    $config['protocol'] = "sendmail";
     $config['smtp_host'] = "ssl://smtp.gmail.com";
     $config['smtp_port'] = "465";
     $config['smtp_user'] = $email;
@@ -401,20 +425,20 @@ class Admin_model extends CI_Model{
     } else {
       echo 'Email Tidak Terkirim';
     }
-    }
+  }
 
-    public function getEpass()
-    {
-      $where = array('id' => 1);
-      $query = $this->db->get_where('view_admin',$where);
-      return $query->row();
-    }
+  public function getEpass()
+  {
+    $where = array('id' => 1);
+    $query = $this->db->get_where('view_admin',$where);
+    return $query->row();
+  }
 
-    public function sentTempReport($id_node,$temp,$email,$pass,$custMail)
+    /*public function sentTempReport($id_node,$temp,$email,$pass,$custMail)
     {
-      $config['protocol'] = "smtp";
-      $config['smtp_host'] = "ssl://smtp.gmail.com";
-      //$config['smtp_host'] = "smtp.gmail.com";
+      $config['protocol'] = "mail";
+    //  $config['smtp_host'] = "smtp.gmail.com";
+      $config['smtp_host'] = "smtp.gmail.com";
       $config['smtp_port'] = "465";
       $config['smtp_user'] = $email;
       $config['smtp_pass'] = $pass;
@@ -432,6 +456,29 @@ class Admin_model extends CI_Model{
         echo 'Email Tidak Terkirim';
       }
 
+    }*/
+
+    public function sentTempReport($id_node,$temp,$email,$pass,$custMail)
+    {
+      $config['protocol'] = "sendmail";
+      $config['smtp_host'] = "ssl://smtp.gmail.com";
+      //  $config['smtp_host'] = "smtp.gmail.com";
+      $config['smtp_port'] = "465";
+      $config['smtp_user'] = $email;
+      $config['smtp_pass'] = $pass;
+      $config['charset'] = "utf-8";
+      $config['mailtype'] = "html";
+      $config['newline'] = "\r\n";
+      $this->email->initialize($config);
+      $this->email->from($email, 'Admin SIMPLE');
+      $this->email->to($custMail);
+      $this->email->subject('Warning Temp From Node'.$id_node);
+      $this->email->message('Dear pelanggan Kami, Bersamaan dengan email ini memberitahukan bahwa suhu pada Perangkat anda (Node'.$id_node.') dalam status BURUK ('.$temp.'). Terima Kasih');
+      if ($this->email->send()) {
+        echo 'Email Terkirim';
+      } else {
+        echo 'Email Tidak Terkirim';
+      }
     }
 
     public function getDownloadedData($id_node)
@@ -464,7 +511,18 @@ class Admin_model extends CI_Model{
       }
       $query = $this->db->query('select * from view_download_'.$this->input->post('data').' where id_node = '.$id_node.' and (year = '.$year.' or month = '.$month.' or week = '.$week.' or date = "'.$date.'")');
       return $query->result();
+    }
 
+    public function getNewNodeList()
+    {
+      $query = $this->db->query('select * from view_node limit 5');
+      return $query->result();
+    }
+
+    public function getNewClientList()
+    {
+      $query = $this->db->query('select * from view_client limit 5');
+      return $query->result();
     }
 
   }
