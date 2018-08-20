@@ -41,7 +41,7 @@
   <div class="col-md-9">
     <div class="nav-tabs-custom">
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#editProfile" data-toggle="tab">Edit Akun</a></li>
+        <li class="active"><a href="#editProfile" data-toggle="tab">Edit Node</a></li>
         <li class=""><a href="#listTemp" data-toggle="tab">Data Suhu</a></li>
         <li class=""><a href="#listPH" data-toggle="tab">Data PH</a></li>
         <li class=""><a href="#downloadReport" data-toggle="tab">Unduh Data</a></li>

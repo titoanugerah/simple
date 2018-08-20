@@ -15,7 +15,7 @@ $route['createAccount'] = 'admin/createAccount';
 $route['listAccount'] = 'admin/listAccount';
 $route['detailAccount/(:any)'] = 'admin/detailAccount/$1';
 $route['test'] = 'admin/test';
-$route['createnodesuccess'] = 'admin/createNodeSuccess';
+$route['createNodeSuccess'] = 'admin/createNodeSuccess';
 
 
 $route['clientDashboard'] = 'client/clientDashboard';

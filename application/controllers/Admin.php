@@ -74,7 +74,7 @@ class Admin extends CI_Controller {
 			$this->admin_model->createNodeConf($id_node);
 			$this->admin_model->deleteCurrentPH($id_node);
 			$this->admin_model->deleteCurrentTemp($id_node);
-			redirect(base_url('createnodesuccess'));
+			redirect(base_url('createNodeSuccess'));
 		}
 		$data['list'] = $this->admin_model->getClientNode($id);
 		$data['detail'] = $this->admin_model->getSelectedAccount($id);
@@ -82,13 +82,13 @@ class Admin extends CI_Controller {
 		$this->load->view('template',$data);
 	}
 
-	public function createNodeSuccess()
+	public function createNodeSuccesss()
 	{
 		$data['notification'] = 'createNodeSuccess';
 		$data['list'] = $this->admin_model->getListNode();
 		$data['view_name'] = 'admin/listNode';
 		$this->load->view('template',$data);
-//		$this->admin_model->downloadNodeConf();
+	$this->admin_model->downloadNodeConf();
 
 	}
 
