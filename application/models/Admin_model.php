@@ -407,7 +407,7 @@ class Admin_model extends CI_Model{
 
   public function sentPHReport($id_node,$ph,$email,$pass,$custMail)
   {
-    $config['protocol'] = "sendmail";
+    $config['protocol'] = "mail";
     $config['smtp_host'] = "ssl://smtp.gmail.com";
     $config['smtp_port'] = "465";
     $config['smtp_user'] = $email;
@@ -460,7 +460,7 @@ class Admin_model extends CI_Model{
 
     public function sentTempReport($id_node,$temp,$email,$pass,$custMail)
     {
-      $config['protocol'] = "sendmail";
+      $config['protocol'] = "mail";
       $config['smtp_host'] = "ssl://smtp.gmail.com";
       //  $config['smtp_host'] = "smtp.gmail.com";
       $config['smtp_port'] = "465";
@@ -523,6 +523,15 @@ class Admin_model extends CI_Model{
     {
       $query = $this->db->query('select * from view_client limit 5');
       return $query->result();
+    }
+
+    public function deleteAccount($id)
+    {
+      $where = array('id'=>$id);
+      $this->db->where($where);
+      $this->db->delete('account');
+      $this->db->where($where);
+      $this->db->delete('account_client');
     }
 
   }

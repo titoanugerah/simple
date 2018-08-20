@@ -116,6 +116,7 @@
               <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-success" name="updateAccount" value="updateAccount">Simpan Data</button>
                 <button type="submit" class="btn btn-info" name="updatePassword" value="updatePassword">Perbaharui password</button>
+                <button type="submit" class="btn btn-danger" name="deleteAccount" value="deleteAccount">Hapus Pelanggan</button>
               </div>
             </div>
           </form>

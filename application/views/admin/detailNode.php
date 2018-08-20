@@ -125,7 +125,7 @@
                     <tr>
                       <th>No.</th>
                       <th>Tanggal dan Waktu</th>
-                      <th>Temperatur</th>
+                      <th>pH</th>
                       <th>Status</th>
                     </tr>
                   </thead>
@@ -144,7 +144,7 @@
                       <tr>
                         <th>No.</th>
                         <th>Tanggal dan Waktu</th>
-                        <th>Temperatur</th>
+                        <th>pH</th>
                         <th>Status</th>
                       </tr>
                     </tfoot>

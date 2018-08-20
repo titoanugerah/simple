@@ -66,18 +66,28 @@ class Admin extends CI_Controller {
 		} elseif ($this->input->post('resetPasword')) {
 			$this->admin_model->resetPasswordSelectedAccount($id);
 			$data['notification'] = 'updateSuccess';
+		} elseif ($this->input->post('deleteAccount')) {
+			$this->admin_model->deleteAccount($id);
+			$data['notification'] = 'updateSuccess';
 		} elseif ($this->input->post('createNode')) {
 			$id_node = $this->admin_model->createNode($id);
 			$this->admin_model->createNodeConf($id_node);
+			$this->admin_model->deleteCurrentPH($id_node);
+			$this->admin_model->deleteCurrentTemp($id_node);
 			$this->admin_model->downloadNodeConf();
-            $this->admin_model->deleteCurrentPH($id_node);
-            $this->admin_model->deleteCurrentTemp($id_node);
-            redirect(base_url('listNode'));
-
+			redirect(base_url('createNodeSuccess'));
 		}
 		$data['list'] = $this->admin_model->getClientNode($id);
 		$data['detail'] = $this->admin_model->getSelectedAccount($id);
 		$data['view_name'] = 'admin/detailAccount';
+		$this->load->view('template',$data);
+	}
+
+	public function createNodeSuccess()
+	{
+		$data['notification'] = 'createNodeSuccess';
+		$data['list'] = $this->admin_model->getListNode();
+		$data['view_name'] = 'admin/listNode';
 		$this->load->view('template',$data);
 	}
 
@@ -157,12 +167,12 @@ class Admin extends CI_Controller {
 			echo "PH = ".$this->input->get('ph',false)."<br>";
 
 			if((($this->input->get('temp')!=0) && $this->input->get('temp')<21 or $this->input->get('temp')>35) && (($this->input->get('ph')!=0) && $this->input->get('ph')<5 or $this->input->get('ph')>10)){
-				$this->admin_model->sentTempReport($this->input->get('id_node'),$this->input->get('temp'),$epass->email,$epass->epass,$custMail->email);
-				$this->admin_model->sentPHReport($this->input->get('id_node'),$this->input->get('ph'),$epass->email,$epass->epass,$custMail->email);
+				$this->admin_model->sentTempReport($this->input->get('id_node'),$this->input->get('temp'),$epass->email,$epass->password,$custMail->email);
+				$this->admin_model->sentPHReport($this->input->get('id_node'),$this->input->get('ph'),$epass->email,$epass->password,$custMail->email);
 			} else if(($this->input->get('temp')!=0) && $this->input->get('temp')<21 or $this->input->get('temp')>35){
-				$this->admin_model->sentTempReport($this->input->get('id_node'),$this->input->get('temp'),$epass->email,$epass->epass,$custMail->email);
+				$this->admin_model->sentTempReport($this->input->get('id_node'),$this->input->get('temp'),$epass->email,$epass->password,$custMail->email);
 			} else if(($this->input->get('temp')!=0) && $this->input->get('ph')<5 or $this->input->get('ph')>10){
-				$this->admin_model->sentPHReport($this->input->get('id_node'),$this->input->get('ph'),$epass->email,$epass->epass,$custMail->email);
+				$this->admin_model->sentPHReport($this->input->get('id_node'),$this->input->get('ph'),$epass->email,$epass->password,$custMail->email);
 			}
 		} else {
 			echo "Node Error";

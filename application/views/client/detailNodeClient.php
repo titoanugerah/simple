@@ -23,25 +23,22 @@
       <!-- /.box-header -->
       <div class="box-body">
         <strong><i class="fa fa-user margin-r-5"></i> Nama Panjang</strong>
-
         <p class="text-muted">
           <?php echo $detail->fullname ?>
         </p>
-
         <hr>
 
         <strong><i class="fa fa-envelope margin-r-5"></i>E-mail</strong>
-
         <p class="text-muted"><?php echo $detail->email; ?></p>
-
         <hr>
 
         <strong><i class="fa fa-phone-square margin-r-5"></i>Nomor Telepon</strong>
-
         <p class="text-muted"><?php  echo $detail->phone_number; ?></p>
-
         <hr>
 
+        <strong><i class="fa fa-phone-square margin-r-5"></i>Letak Node</strong>
+        <p class="text-muted"><?php echo $detail->node_address; ?></p>
+        <hr>
       </div>
       <!-- /.box-body -->
     </div>
@@ -51,48 +48,13 @@
   <div class="col-md-9">
     <div class="nav-tabs-custom">
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#editProfile" data-toggle="tab">Edit Akun</a></li>
-        <li class=""><a href="#listTemp" data-toggle="tab">Data Suhu</a></li>
+        <li class="active"><a href="#listTemp" data-toggle="tab">Data Suhu</a></li>
         <li class=""><a href="#listPH" data-toggle="tab">Data PH</a></li>
         <li class=""><a href="#downloadReport" data-toggle="tab">Unduh Data</a></li>
       </ul>
       <div class="tab-content">
-        <div class="active tab-pane" id="editProfile">
-          <form class="form-horizontal" method="post">
-            <div class="form-group">
-              <label for="inputName" class="col-sm-2 control-label">Nama Perangkat</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Nama Perangkat" name="node_name" value="<?php echo $detail->node_name; ?>">
-              </div>
-            </div>
 
-            <div class="form-group">
-              <label for="inputName" class="col-sm-2 control-label">Letak Perangkat</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Letak Perangkat" name="address" value="<?php echo $detail->node_address; ?>">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="inputName" class="col-sm-2 control-label">Status</label>
-              <div class="col-sm-10">
-                <select class="form-control" name="status">
-                  <option value="1" <?php if ($detail->status==1){ echo "selected";} ?>>Aktif</option>
-                  <option value="0" <?php if ($detail->status==0){ echo "selected";} ?>>Nonaktif</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-success" name="updateNode" value="updateNode">Simpan Data</button>
-                <button type="submit" class="btn btn-danger" name="deleteNode" value="deleteNode">Hapus Node</button>
-              </div>
-            </div>
-          </form>
-        </div>
-
-        <div class="tab-pane" id="listTemp">
+        <div class="active tab-pane" id="listTemp">
           <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
             <div class="box-body">
               <table id="example2" class="table table-bordered table-striped">
@@ -135,7 +97,7 @@
                     <tr>
                       <th>No.</th>
                       <th>Tanggal dan Waktu</th>
-                      <th>Temperatur</th>
+                      <th>pH</th>
                       <th>Status</th>
                     </tr>
                   </thead>
@@ -154,7 +116,7 @@
                       <tr>
                         <th>No.</th>
                         <th>Tanggal dan Waktu</th>
-                        <th>Temperatur</th>
+                        <th>pH</th>
                         <th>Status</th>
                       </tr>
                     </tfoot>
