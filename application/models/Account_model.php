@@ -45,6 +45,9 @@ class Account_model extends CI_Model{
 
   public function updateAccount()
   {
+    if ($this->input->post('username')=='' || $this->input->post('fullname')=='' || $this->input->post('email')=='' ||  $this->input->post('phone_number')=='' ||  $this->input->post('address')=='') {
+      return false;
+    } else {
     $dataA = array(
       'username' => $this->input->post('username')
      );
@@ -61,7 +64,9 @@ class Account_model extends CI_Model{
      $this->db->update('account',$dataA);
      $this->db->where($where);
      $this->db->update('account_'.$this->session->userdata['privileges'],$dataB);
+     return true;
    }
+ }
 
    public function updatePassword()
    {

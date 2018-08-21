@@ -61,20 +61,23 @@ class Admin extends CI_Controller {
 	{
 		$data['notification'] = 'no';
 		if ($this->input->post('updateAccount')) {
-			$this->admin_model->updateSelectedAccount($id);
-			$data['notification'] = 'updateSuccess';
+			if (!$this->admin_model->updateSelectedAccount($id)) {
+				$data['notification'] = 'updateFailed';
+			} else {
+				$data['notification'] = 'updateSuccess';
+			}
 		} elseif ($this->input->post('resetPasword')) {
 			$this->admin_model->resetPasswordSelectedAccount($id);
 			$data['notification'] = 'updateSuccess';
 		} elseif ($this->input->post('deleteAccount')) {
 			$this->admin_model->deleteAccount($id);
-			$data['notification'] = 'updateSuccess';
+			redirect(base_url('listAccount'));
 		} elseif ($this->input->post('createNode')) {
 			$id_node = $this->admin_model->createNode($id);
 			$this->admin_model->createNodeConf($id_node);
 			$this->admin_model->deleteCurrentPH($id_node);
 			$this->admin_model->deleteCurrentTemp($id_node);
-			redirect(base_url('createNodeSuccess'));
+			$data['notification'] = 'createNodeSuccess';
 		}
 		$data['list'] = $this->admin_model->getClientNode($id);
 		$data['detail'] = $this->admin_model->getSelectedAccount($id);
@@ -82,13 +85,10 @@ class Admin extends CI_Controller {
 		$this->load->view('template',$data);
 	}
 
-	public function createNodeSuccesss()
+
+	public function downloadNodeConf()
 	{
-		$data['notification'] = 'createNodeSuccess';
-		$data['list'] = $this->admin_model->getListNode();
-		$data['view_name'] = 'admin/listNode';
-		$this->load->view('template',$data);
-	$this->admin_model->downloadNodeConf();
+		$this->admin_model->downloadNodeConf();
 
 	}
 
@@ -96,8 +96,11 @@ class Admin extends CI_Controller {
 	{
 		$data['notification'] = 'no';
 		if ($this->input->post('updateNode')) {
-			$this->admin_model->updateNode($id);
-			$data['notification'] = 'updateSuccess';
+			if ($this->admin_model->updateNode($id)==false) {
+				$data['notification'] = 'updateFailed';
+			} else {
+				$data['notification'] = 'updateSuccess';
+			}
 		} elseif ($this->input->post('deleteNode')) {
 			$this->admin_model->deleteNode($id);
 			$this->admin_model->deleteCurrentPH($id);
@@ -170,10 +173,13 @@ class Admin extends CI_Controller {
 			if((($this->input->get('temp')!=0) && $this->input->get('temp')<21 or $this->input->get('temp')>35) && (($this->input->get('ph')!=0) && $this->input->get('ph')<5 or $this->input->get('ph')>10)){
 				$this->admin_model->sentTempReport($this->input->get('id_node'),$this->input->get('temp'),$epass->email,$epass->password,$custMail->email);
 				$this->admin_model->sentPHReport($this->input->get('id_node'),$this->input->get('ph'),$epass->email,$epass->password,$custMail->email);
+				echo '<audio src="<?php echo base_url("./assets/alert.mp3"); ?>" autoplay></audio>';
 			} else if(($this->input->get('temp')!=0) && $this->input->get('temp')<21 or $this->input->get('temp')>35){
 				$this->admin_model->sentTempReport($this->input->get('id_node'),$this->input->get('temp'),$epass->email,$epass->password,$custMail->email);
+				echo '<audio src="<?php echo base_url("./assets/alert.mp3"); ?>" autoplay></audio>';
 			} else if(($this->input->get('temp')!=0) && $this->input->get('ph')<5 or $this->input->get('ph')>10){
 				$this->admin_model->sentPHReport($this->input->get('id_node'),$this->input->get('ph'),$epass->email,$epass->password,$custMail->email);
+				echo '<audio src="<?php echo base_url("./assets/alert.mp3"); ?>" autoplay></audio>';
 			}
 		} else {
 			echo "Node Error";

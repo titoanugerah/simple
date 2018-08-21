@@ -277,6 +277,9 @@ class Admin_model extends CI_Model{
 
   public function updateNode($id)
   {
+    if ($this->input->post('node_name')=='' || $this->input->post('address')=='') {
+      return false;
+    }
     $data = array(
       'node_name' => $this->input->post('node_name'),
       'address' => $this->input->post('address'),
@@ -285,6 +288,7 @@ class Admin_model extends CI_Model{
      $where = array('id'=>$id);
      $this->db->where($where);
      $this->db->update('node',$data);
+     return true;
   }
 
   public function deleteNode($id)
@@ -302,20 +306,25 @@ class Admin_model extends CI_Model{
 
   public function updateSelectedAccount($id)
   {
-    $dataA = array(
-      'username' => $this->input->post('username')
-     );
-    $dataB = array(
-      'fullname' => $this->input->post('fullname'),
-      'email' => $this->input->post('email'),
-      'phone_number' => $this->input->post('phone_number'),
-      'address' => $this->input->post('address')
-     );
-     $where = array('id' => $id);
-     $this->db->where($where);
-     $this->db->update('account',$dataA);
-     $this->db->where($where);
-     $this->db->update('account_client',$dataB);
+    if ($this->input->post('username')=='' || $this->input->post('fullname')=='' || $this->input->post('email')=='' ||  $this->input->post('phone_number')=='' ||  $this->input->post('address')=='') {
+      return false;
+    } else {
+      $dataA = array(
+        'username' => $this->input->post('username')
+      );
+      $dataB = array(
+        'fullname' => $this->input->post('fullname'),
+        'email' => $this->input->post('email'),
+        'phone_number' => $this->input->post('phone_number'),
+        'address' => $this->input->post('address')
+      );
+      $where = array('id' => $id);
+      $this->db->where($where);
+      $this->db->update('account',$dataA);
+      $this->db->where($where);
+      $this->db->update('account_client',$dataB);
+      return true;
+    }
   }
 
   public function resetPasswordSelectedAccount($id)

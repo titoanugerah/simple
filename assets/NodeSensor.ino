@@ -1,4 +1,4 @@
-#define NODE_addr  16
+#define NODE_addr  21
     #include <SoftwareSerial.h>
     #define PC  Serial
     //#define nodeWifi  PC

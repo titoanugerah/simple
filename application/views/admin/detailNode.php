@@ -56,10 +56,11 @@
               </div>
             </div>
 
+
             <div class="form-group">
               <label for="inputName" class="col-sm-2 control-label">Letak Perangkat</label>
               <div class="col-sm-10">
-                <input type="text" class="form-control" placeholder="Letak Perangkat" name="address" value="<?php echo $detail->node_address; ?>">
+                <input type="text" class="form-control" placeholder="Letak Perangkat" name="address" id="address" value="<?php echo $detail->node_address; ?>">
               </div>
             </div>
 
@@ -95,14 +96,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php $i=1; foreach ($listTemp as $item) : ?>
+                  <?php $i=1; $bad=false; foreach ($listTemp as $item) : ?>
                     <tr>
                       <td><?php echo $i; ?></td>
                       <td><?php echo $item->record_time; ?></td>
                       <td><?php echo $item->temp." c"; ?></td>
-                      <td><?php if ($item->temp >= 25 && $item->temp <= 30) { echo "Baik";} else { echo " Buruk";}?></td>
+                      <td><?php if ($item->temp >= 25 && $item->temp <= 30) { echo "Baik";} else { echo " Buruk"; $bad = true; }?></td>
                     </tr>
-                    <?php $i++; endforeach; ?>
+                    <?php $i++; endforeach; if ($bad==true) {$this->load->view('notification/badRecord');}?>
+
                   </tbody>
                   <tfoot>
                     <tr>
@@ -130,15 +132,15 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <?php $i=1; foreach ($listPH as $item) : ?>
+                    <?php $i=1; $bad=false; foreach ($listPH as $item) : ?>
                       <tr>
                         <td><?php echo $i; ?></td>
                         <td><?php echo $item->record_time; ?></td>
                         <td><?php echo $item->ph; ?></td>
-                        <td><?php if ($item->ph >= 6.5 && $item->ph <= 8) { echo "Baik";} else { echo " Buruk";}?></td>
+                        <td><?php if ($item->ph >= 6.5 && $item->ph <= 8) { echo "Baik";} else { echo " Buruk";$bad=true;}?></td>
 
                       </tr>
-                      <?php $i++; endforeach; ?>
+                      <?php $i++; endforeach; if ($bad==true) {$this->load->view('notification/badRecord');}?>
                     </tbody>
                     <tfoot>
                       <tr>
@@ -262,3 +264,21 @@
     <!-- /.col -->
   </div>
   <!-- /.row -->
+
+  <script type="text/javascript">
+
+      function play()
+   {
+       var embed = document.createElement('object');
+
+       embed.setAttribute('src', 'c:\\test.wav');
+       embed.setAttribute('hidden', true);
+       embed.setAttribute('autostart', true);
+       embed.setAttribute('enablejavascript', true);
+
+       document.childNodes[0].appendChild(embed);
+
+   }
+
+  // -->
+  </script>

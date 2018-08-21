@@ -65,8 +65,12 @@ class Account extends CI_Controller {
 		}
 
 		if ($this->input->post('updateProfile')) {
-			$this->account_model->updateAccount();
-			$data['notification'] = 'updateSuccess';
+
+			if ($this->account_model->updateAccount()==false) {
+				$data['notification'] = 'updateFailed';
+			} else {
+				$data['notification'] = 'updateSuccess';
+			}
 			$data['view_name'] = 'profile';
 			$this->load->view('template',$data);
 		} elseif ($this->input->post('updatePassword')) {
