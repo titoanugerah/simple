@@ -125,7 +125,7 @@
         <div class="tab-pane" id="listNode">
 
             <div class="box-body">
-              <table id="example2" class="table table-bordered table-striped">
+              <table id="example3" class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th>No.</th>

@@ -253,14 +253,26 @@
 <script src="<?php echo base_url('./assets/plugins/fullcalendar/fullcalendar.min.js'); ?>"></script>
 
 <script>
-  $(function () {
+$(function () {
+  $("#example0").DataTable({
+    "paging": true,
+    "lengthChange": true,
+    "searching": true,
+    "ordering": true,
+    "info": true,
+    "autoWidth": true,
+    "order": [[0,"desc"]]
+
+      });
     $("#example1").DataTable({
       "paging": true,
       "lengthChange": true,
       "searching": true,
       "ordering": true,
       "info": true,
-      "autoWidth": true
+      "autoWidth": true,
+      "order": [[0,"desc"]]
+
         });
     $('#example2').DataTable({
       "paging": true,

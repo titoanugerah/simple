@@ -57,7 +57,7 @@
         <div class="active tab-pane" id="listTemp">
           <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
             <div class="box-body">
-              <table id="example2" class="table table-bordered table-striped">
+              <table id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th>No.</th>
@@ -93,7 +93,7 @@
               <div id="container1" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 
               <div class="box-body">
-                <table id="example1" class="table table-bordered table-striped">
+                <table id="example0" class="table table-bordered table-striped">
                   <thead>
                     <tr>
                       <th>No.</th>

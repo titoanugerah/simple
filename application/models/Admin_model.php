@@ -296,6 +296,7 @@ class Admin_model extends CI_Model{
     $where = array('id'=>$id);
     $this->db->where($where);
     $this->db->delete('node');
+    //DELETE FROM NODE WHERE ID=5
   }
 
   public function getListNode()
@@ -381,6 +382,7 @@ class Admin_model extends CI_Model{
       $where = array('id_node'=>$id_node);
       $this->db->where($where);
       $this->db->delete('ph');
+      //DELETE FROM PH WHERE ID_NODE=
     }
 
     public function deleteCurrentTemp($id_node)
@@ -495,6 +497,8 @@ class Admin_model extends CI_Model{
       $where = array(
         'id_node' => $id_node
         );
+
+        //SELECT * FROM view_download_ph WHERE ID_NODE=
       $query = $this->db->get_where('view_download_ph',$where);
       return $query->result();
     }

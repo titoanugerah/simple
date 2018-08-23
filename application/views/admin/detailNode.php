@@ -78,6 +78,7 @@
               <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-success" name="updateNode" value="updateNode">Simpan Data</button>
                 <button type="submit" class="btn btn-danger" name="deleteNode" value="deleteNode">Hapus Node</button>
+                <button type="submit" class="btn btn-info" name="downloadNodeConf" value="downloadNodeConf">Unduh Konfigurasi</button>
               </div>
             </div>
           </form>
@@ -86,7 +87,7 @@
         <div class="tab-pane" id="listTemp">
           <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
             <div class="box-body">
-              <table id="example2" class="table table-bordered table-striped">
+              <table id="example0" class="table table-bordered table-striped">
                 <thead>
                   <tr>
                     <th>No.</th>
@@ -96,12 +97,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php $i=1; $bad=false; foreach ($listTemp as $item) : ?>
+
+
+                  <?php $i=1; $bad=false;date_default_timezone_set("Asia/Jakarta"); foreach ($listTemp as $item) : ?>
                     <tr>
                       <td><?php echo $i; ?></td>
                       <td><?php echo $item->record_time; ?></td>
                       <td><?php echo $item->temp." c"; ?></td>
-                      <td><?php if ($item->temp >= 25 && $item->temp <= 30) { echo "Baik";} else { echo " Buruk"; $bad = true; }?></td>
+                      <td><?php if ($item->temp >= 25 && $item->temp <= 30) { echo "Baik";} elseif($item->date == date("Y-m-d") && ($item->temp < 25 || $item->temp > 30)) { echo " Buruk"; $bad = true; } else { echo " Buruk";}?></td>
                     </tr>
                     <?php $i++; endforeach; if ($bad==true) {$this->load->view('notification/badRecord');}?>
 
@@ -132,13 +135,12 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <?php $i=1; $bad=false; foreach ($listPH as $item) : ?>
+                    <?php $i=1;date_default_timezone_set("Asia/Jakarta"); $bad=false; foreach ($listPH as $item) : ?>
                       <tr>
                         <td><?php echo $i; ?></td>
                         <td><?php echo $item->record_time; ?></td>
                         <td><?php echo $item->ph; ?></td>
-                        <td><?php if ($item->ph >= 6.5 && $item->ph <= 8) { echo "Baik";} else { echo " Buruk";$bad=true;}?></td>
-
+                        <td><?php if ($item->ph >= 6.5 && $item->ph <= 8) { echo "Baik";} elseif(($item->ph < 6.5 || $item->ph > 8) && $item->date == date("Y-m-d")) { echo "Buruk";$bad=true;} else {echo "Buruk"; }?></td>
                       </tr>
                       <?php $i++; endforeach; if ($bad==true) {$this->load->view('notification/badRecord');}?>
                     </tbody>
